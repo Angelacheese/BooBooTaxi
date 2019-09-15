@@ -1,0 +1,36 @@
+[
+    {
+      "name": "長庚大學",
+      "address": "桃園市龜山區文化一路259號",
+      "coords": {
+        "latitude": 25.033608,
+        "longitude":  121.387534
+      }
+    },
+    {
+      "name": "林口長庚紀念醫院",
+      "address": "桃園市龜山區復興街5號",
+      "coords": {
+        "latitude": 25.061347, 
+        "longitude": 121.367604
+      }
+    },
+    {
+      "name": "我家",
+      "address": "桃園市龜山區興華三街10號",
+      "coords": {
+        "latitude": 25.054605, 
+        "longitude": 121.364799
+      }
+    },
+    {
+      "name": "捷運迴龍站",
+      "address": "新北市新莊區新北大道七段219號",
+      "coords": {
+        "latitude": 25.022208, 
+        "longitude": 121.411604
+      }
+      
+    }
+
+  ]

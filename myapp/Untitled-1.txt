@@ -1,0 +1,71 @@
+字形大小:
+
+1)首頁、標題
+2)一般(預設)
+
+按鈕形式:
+1)下一步、預約叫車
+2)有框的按鈕
+3)選擇下拉式選單
+
+
+titleText:{
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fddb92",
+    margin: 10
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+navigator
+
+目前的順序:
+root >>> drawer >>> stack
+
+
+
+
+錯誤(原本)的順序:
+root >>> stack >>> drawer
+
+    錯誤原因:  
+        stack: home, member, common.....其他頁面
+        drawer: home (程式一進去的頁面)
+
+        從drawer 的 home 按了常用路線 >>> commom某一頁(屬於stack)
+        在屬於stack裡面呼叫DrawerAction他會讀不到
+
+
+
+
+
+
+
+
+
