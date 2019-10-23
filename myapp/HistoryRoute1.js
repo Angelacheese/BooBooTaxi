@@ -10,10 +10,12 @@ import {
   Alert
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-
+import { createAppContainer } from "react-navigation";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 import { Tooltip } from "react-native-elements";
+//import { _TouchableOpacity } from "./test1";
 
-export default class CommonRoute1 extends React.Component {
+class CommonRoute1 extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: "歷史路線"
   });
@@ -21,22 +23,15 @@ export default class CommonRoute1 extends React.Component {
     return (
       <ScrollView style={{ flex: 1 }} backgroundColor="#001540">
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <View
-            style={styles.border}
-          >
-            <Tooltip
-              popover={
-                <View>
-                  <Text>行車時間:</Text>
-                  <Text>行車距離:</Text>
-                </View>
-              }
-            >
-              <View flexDirection="row">
+          <View style={styles.border}>
+          <View flexDirection="row">
                 <Icon name="beenhere" color="#ccc" size={50} margin={10} />
-                <Text style={styles.titleText}>路線名稱:</Text>
+                <Text
+                  style={styles.titleText}
+                >
+                  路線名稱:
+                </Text>
               </View>
-            </Tooltip>
             <View flexDirection="row" style={{ justifyContent: "flex-end" }}>
               <TouchableOpacity
                 style={styles.button}
@@ -75,7 +70,61 @@ export default class CommonRoute1 extends React.Component {
     );
   }
 }
+class SettingsScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: "歷史路線"
+  });
+  render() {
+    return (
+      <ScrollView style={{ flex: 1 }} backgroundColor="#001540">
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <View style={styles.border}>
+          <View flexDirection="row">
+                <Icon name="beenhere" color="#ccc" size={50} margin={10} />
+                <Text
+                  style={styles.titleText}
+                >
+                  路線名稱:
+                </Text>
+              </View>
+            <View flexDirection="row" style={{ justifyContent: "flex-end" }}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => this.props.navigation.navigate("HistoryRoute2")}
+              >
+                <Text style={{ color: "white" }}>查看更多</Text>
+              </TouchableOpacity>
 
+              <TouchableOpacity style={styles.button}>
+                <TouchableWithoutFeedback
+                  style={{ backgroundColor: "powderblue" }}
+                  onPress={() => {
+                    Alert.alert("提示", "是否確定叫車", [
+                      {
+                        text: "取消",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                      },
+                      {
+                        text: "確定",
+                        onPress: () =>
+                          this.props.navigation.navigate("WaitingPage")
+                      }
+                    ]);
+                  }}
+                >
+                  <View>
+                    <Text style={{ color: "white" }}> 用此路線叫車 </Text>
+                  </View>
+                </TouchableWithoutFeedback>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    );
+  }
+}
 const styles = StyleSheet.create({
   button: {
     borderWidth: 0.5,
@@ -97,7 +146,7 @@ const styles = StyleSheet.create({
     color: "#fddb92",
     margin: 10
   },
-  border:{
+  border: {
     justifyContent: "space-between",
     borderColor: "white",
     borderWidth: 1,
@@ -107,3 +156,9 @@ const styles = StyleSheet.create({
     height: 150
   }
 });
+const TabNavigator = createBottomTabNavigator({
+  CommonRoute1: CommonRoute1,
+  Settings: SettingsScreen
+});
+
+export default createAppContainer(TabNavigator);

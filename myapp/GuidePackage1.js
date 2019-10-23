@@ -1,201 +1,128 @@
-import React from "react";
+import React, { Component } from "react";
 import { Icon } from "react-native-elements";
-import { LinearGradient } from "expo-linear-gradient";
-//import {Navigation} from 'react-navigation';
 import {
+  Animated,
+  Easing,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
   Image,
-  FlatList,
-  Component,
-  Animated,
-  TouchableWithoutFeedback
+  View,
+  Dimensions,
+  TouchableOpacity,
+  ScrollView,
+  Platform
 } from "react-native";
-import DraggableFlatList from "react-native-draggable-flatlist";
+import SortableList from "react-native-sortable-list";
+import Timeline from "react-native-timeline-listview";
+const window = Dimensions.get("window");
 
-export default class CommonRoute1 extends React.Component {
+export default class Basic extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "車導推薦行程",
-    headerRight: (
-      <View flexDirection="row" justifyContent="flex-end" width={250}>
-      <TouchableOpacity>
-        <Icon name="favorite" color="pink" size={35} margin={5} />
-      </TouchableOpacity>
-    </View>
-    )
+    title: "歷程記錄"
   });
-
- 
-  state = {
-    data: [...Array(10)].map((d, index) => ({
-      key: `item-${index}`,
-      label: index,
-      backgroundColor: "transparent",
-      // borderColor:'black',
-      // borderWidth:2
-    
-    }))
-  };
-
-  renderItem = ({ item,  move, moveEnd, isActive }) => {
-    const point = [
-      "東海大學",
-      "東海乳品小棧",
-      "磐頂教堂",
-      "坪頂番薯姨",
-      "鰲峰山公園",
-      "大甲鎮瀾宮",
-      "鐵砧山風景特定區",
-      "花巷松林餐廳",
-      "日南火車站",
-      "清水國小"
+  constructor() {
+    super();
+    this.data = [
+      { time: "09:00", title: "東海大學" },
+      { time: "10:45", title: "東海乳品小棧" },
+      { time: "12:00", title: "磐頂教堂" },
+      { time: "14:00", title: "坪頂番薯姨" },
+      { time: "16:30", title: "鰲峰山公園" },
+      { time: "16:30", title: "大甲鎮瀾宮" },
+      { time: "16:30", title: "鐵砧山風景特定區" },
+      { time: "16:30", title: "花崗松林餐廳" }
     ];
-    return (
-      <TouchableOpacity
-        style={{
-          height: 50,
-          backgroundColor: isActive ? "gray" : item.backgroundColor,
-          alignItems: "center",
-          justifyContent: "center"
-        }}
-        onLongPress={move}
-        onPressOut={moveEnd}
-      >
-        
-              <Text
-                style={{
-                  color: "powderblue",
-                  fontSize: 20
-                }}
-              >
-                {point[item.label]}
-              </Text>
-          
-      </TouchableOpacity>
-    );
-  };
+  }
+
   render() {
-   
     return (
-      <ScrollView style={{ flex: 1 }}>
-        <LinearGradient
-          colors={["#fddb92", "#ffecd2", "#fdfbfb"]}
-          style={{
-            width: "100%",
-            height: "100%"
-          }}
-        >
-          <View style={{ flexDirection: "row", margin: 10 }}>
-            <Image
-              source={{
-                uri:
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa4e2VF6cfou9oL0cc5OAzVTEbmAgFjIW2r-7lTkpOljG9k38N"
+      <View style={{ flex: 1, backgroundColor: "#001540" }}>
+        <View style={{ flexDirection: "row", margin: 10 }}>
+          <Image
+            source={require("./pic/[BestGuide7]ryu.jpg")}
+            style={styles.circle}
+          />
+          <View>
+            <Text
+              style={{
+                color: "brown",
+                fontSize: 30,
+                textShadowColor: "gray",
+                textShadowRadius: 3,
+                textAlignVertical: "bottom"
               }}
-              style={styles.circle}
-            />
-            <View>
-             
-              <Text
-                style={{
-                  color: "brown",
-                  fontSize: 30,
-                  textShadowColor: "gray",
-                  textShadowRadius: 3, 
-                  textAlignVertical: "bottom"
-                }}
-              >
-                鍾嵐心
-              </Text>
-              <Text>⭐️⭐️⭐️⭐️⭐️</Text>
+            >
+              鍾嵐心
+            </Text>
+            <Text>⭐️⭐️⭐️⭐️⭐️</Text>
 
-              <Text>主打:</Text>
-              <Text>費用:720元/人</Text>
-            </View>
+            <Text>主打:</Text>
+            <Text>費用:720元/人</Text>
           </View>
-
-          <View justifyContent="center" alignItems="center">
-         
-            <DraggableFlatList
-              width={250}
-              data={this.state.data}
-              renderItem={this.renderItem}
-              keyExtractor={(item) => `draggable-item-${item.key}`}
-              scrollPercent={1}
-              onMoveEnd={({ data }) => this.setState({ data })}
-            />
-            <Text>------------------</Text>
-            <TouchableOpacity borderColor='black'>
-              <Text>
-                我要預約
-              </Text>
-            </TouchableOpacity>
-            <Text>------------------</Text>
-          </View>
-        </LinearGradient>
-      </ScrollView>
+        </View>
+        <Timeline
+          data={this.data}
+          circleSize={20}
+          circleColor="rgb(45,156,219)"
+          lineColor="rgb(45,156,219)"
+          innerCircle={"dot"}
+          timeStyle={{
+            textAlign: "center",
+            //  backgroundColor: '#ff9797',
+            color: "white"
+          }}
+          titleStyle={{ color: "white", margin: 10 }}
+          options={{
+            style: { margin: 50 }
+          }}
+        />
+        <View>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.text}>我要預約</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
-  circle: {
-    marginRight: 10,
-    width: 200,
-    height: 200,
-    borderRadius: 100
-  },
   container: {
-    flex: 1,
-    backgroundColor: "#ecf0f1"
-  },
-  tennisBall: {
-    display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "greenyellow",
-    borderRadius: 100,
-    width: 100,
-    height: 100
+    borderWidth: 1,
+    borderColor: "white"
+  },
+
+  contentContainer: {
+    width: 300
   },
   button: {
-    paddingTop: 24,
-    paddingBottom: 24
-  },
-  buttonText: {
-    fontSize: 24,
-    color: "#333"
-  }
-});
-
-const lines = StyleSheet.create({
-  line: {
-    borderWidth: 0,
-    borderColor: "rosybrown",
-    margin: 10
-  }
-});
-
-const buttons = StyleSheet.create({
-  button: {
-    width: 90,
-    height: 50,
-    margin: 3,
-    padding: 5,
-    borderRadius: 2,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  center: {
-    flex: 1,
+    borderWidth: 0.5,
+    borderColor: "#fddb92",
+    borderRadius: 20,
+    width: 110,
+    height: 35,
+    margin: 5,
     justifyContent: "center",
     alignItems: "center"
   },
-  buttonText: {
-    color: "white",
+
+  row: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    height: 50,
+    flex: 1,
+    margin: 5
+  },
+  circle: {
+    width: 150,
+    height: 150,
+    borderRadius: 75
+  },
+  text: {
     fontSize: 20,
-    fontWeight: "bold"
+    color: "#fff"
   }
 });

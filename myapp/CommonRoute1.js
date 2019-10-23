@@ -10,8 +10,7 @@ import {
   Alert
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-
-import { Tooltip } from "react-native-elements";
+import ActionButton from "react-native-action-button";
 
 export default class CommonRoute1 extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -20,27 +19,15 @@ export default class CommonRoute1 extends React.Component {
   render() {
     return (
       <ScrollView style={{ flex: 1 }} backgroundColor="#001540">
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <View
-            style={styles.border}
-          >
-            <Tooltip
-              popover={
-                <View>
-                  <Text>行車時間:</Text>
-                  <Text>行車距離:</Text>
-                </View>
-              }
-            >
-              <View flexDirection="row">
-                <Icon name="beenhere" color="#ccc" size={50} margin={10} />
-                <Text
-                  style={styles.titleText}
-                >
-                  路線名稱:
-                </Text>
-              </View>
-            </Tooltip>
+        <View
+          style={{ flex: 9, justifyContent: "center", alignItems: "center" }}
+        >
+          <View style={styles.border}>
+            <View flexDirection="row">
+              <Icon name="beenhere" color="#ccc" size={50} margin={10} />
+              <Text style={styles.titleText}>路線名稱:</Text>
+            </View>
+
             <View flexDirection="row" style={{ justifyContent: "flex-end" }}>
               <TouchableOpacity
                 style={styles.button}
@@ -74,13 +61,24 @@ export default class CommonRoute1 extends React.Component {
             </View>
           </View>
         </View>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => this.props.navigation.navigate("CommonRoute2")}
-        >
-          <Text style={styles.text}>自訂其他路線</Text>
-        </TouchableOpacity>
+        <View style={{ flex: 1 ,top:120,justifyContent:'flex-end'}}>
+          <ActionButton buttonColor="#fddb92">
+            <ActionButton.Item
+              buttonColor="#3498db"
+              title="刪除路線"
+              onPress={() => {}}
+            >
+              <Icon name="delete" />
+            </ActionButton.Item>
+            <ActionButton.Item
+              buttonColor="#3498db"
+              title="新增路線"
+              onPress={() => this.props.navigation.navigate("CommonRoute2")}
+            >
+              <Icon name="update" />
+            </ActionButton.Item>
+          </ActionButton>
+        </View>
       </ScrollView>
     );
   }
@@ -97,7 +95,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  titleText:{
+  titleText: {
     fontSize: 20,
     fontWeight: "bold",
     color: "#fddb92",
@@ -107,7 +105,7 @@ const styles = StyleSheet.create({
     color: "white",
     margin: 10
   },
-  border:{
+  border: {
     justifyContent: "space-between",
     borderColor: "white",
     borderWidth: 1,
@@ -117,4 +115,3 @@ const styles = StyleSheet.create({
     height: 150
   }
 });
-

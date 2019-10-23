@@ -8,6 +8,7 @@ import {
   Image
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Divider } from "react-native-elements";
 class Member extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: "會員專區"
@@ -49,24 +50,35 @@ class Member extends React.Component {
           >
             <Text style={styles.text}>會員資料</Text>
           </TouchableOpacity>
+          <Divider style={{ backgroundColor: "#ccc", margin: 10 }} />
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.navigation.navigate("Favorite")}
           >
             <Text style={styles.text}>我的收藏</Text>
           </TouchableOpacity>
+          <Divider style={{ backgroundColor: "#ccc", margin: 10 }} />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.props.navigation.navigate("Rating")}
+          >
+            <Text style={styles.text}>我的評價</Text>
+          </TouchableOpacity>
+          <Divider style={{ backgroundColor: "#ccc", margin: 10 }} />
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.navigation.navigate("HistoryRoute1")}
           >
             <Text style={styles.text}>歷史路線</Text>
           </TouchableOpacity>
+          <Divider style={{ backgroundColor: "#ccc", margin: 10 }} />
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.navigation.navigate("CommonRoute1")}
           >
             <Text style={styles.text}>常用路線</Text>
           </TouchableOpacity>
+          <Divider style={{ backgroundColor: "#ccc", margin: 10 }} />
           <TouchableOpacity style={styles.button}>
             <Text style={styles.text}>會員隱私與權益說明</Text>
           </TouchableOpacity>
@@ -99,28 +111,24 @@ class Member extends React.Component {
 
 const styles = StyleSheet.create({
   button: {
-    margin: 10,
     backgroundColor: "transparent",
-    borderColor: "transparent",
-    borderBottomColor: "#fddb92",
-    borderWidth: 0.5,
-    width: 250,
-    height: 40,
+
+    width: 200,
+    height: 30,
     justifyContent: "center"
   },
-  //////確定的
+
   text: {
-    fontSize: 20,
-   
-    color: "white",
-    margin: 10
+    fontSize: 15,
+
+    color: "white"
   },
   circle: {
-    top: 40,
+    margin: 10,
     width: 200,
     height: 200,
     borderRadius: 100
-  },
+  }
 });
 
 const buttons = StyleSheet.create({

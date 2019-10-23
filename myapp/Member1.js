@@ -11,7 +11,7 @@ import {
   ImageBackground
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import DatepickerTest from "./DatepickerTest";
+import DatePicker from "react-native-datepicker";
 class Member1 extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: "會員資料"
@@ -20,30 +20,18 @@ class Member1 extends React.Component {
     super(props);
     this.state = {
       display: true,
-      account: " ",
+      account: "B0544251",
       password: " ",
       name: "IU李知恩",
       sex: " ",
-      birth: " ",
+      date: "2019-09-19",
       phone: " "
     };
   }
   _Write() {
     return (
       <View>
-        <View flexDirection="row">
-          <Text style={styles.text}>會員帳號：</Text>
-          <TextInput
-            style={styles.textInput}
-            keyboardType="email-address"
-            placeholder="請輸入..."
-            onChangeText={account =>
-              this.setState({
-                account: account
-              })
-            }
-          />
-        </View>
+        <Text style={styles.text}>會員帳號：{this.state.account}</Text>
         <View flexDirection="row">
           <Text style={styles.text}>會員密碼：</Text>
           <TextInput
@@ -95,11 +83,31 @@ class Member1 extends React.Component {
         </View>
         <View flexDirection="row">
           <Text style={styles.text}>生日：</Text>
-          <DatepickerTest
-            onPressMask={birth => {
-              this.setState({ birth: birth });
-            }}
-          />
+          <DatePicker
+        style={{ width: 200 }}
+        date={this.state.date}
+        mode="date"
+        placeholder="select date"
+        format="YYYY-MM-DD"
+        minDate="2000-01-01"
+        maxDate="2100-12-31"
+        confirmBtnText="確認"
+        cancelBtnText="取消"
+        customStyles={{
+          dateIcon: {
+            position: "absolute",
+            left: 0,
+            top: 4,
+            marginLeft: 0
+          },
+          dateInput: {
+            marginLeft: 36
+          }
+        }}
+        onDateChange={date => {
+          this.setState({ date: date });
+        }}
+      />
         </View>
       </View>
     );
@@ -113,7 +121,7 @@ class Member1 extends React.Component {
         <Text style={styles.text}>姓名：{this.state.name}</Text>
         <Text style={styles.text}>性別：{this.state.sex}</Text>
         <Text style={styles.text}>手機：{this.state.phone}</Text>
-        <Text style={styles.text}>生日：{this.state.birth}</Text>
+        <Text style={styles.text}>生日：{this.state.date}</Text>
       </View>
     );
   }
@@ -199,7 +207,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 100,
     borderColor: "#ccc",
-    borderStyle:'dashed',
+    borderStyle: "dashed",
     borderWidth: 0.5,
     color: "#ccc"
   }

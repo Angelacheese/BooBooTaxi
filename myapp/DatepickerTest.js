@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-import DatePicker from 'react-native-datepicker'
+import React, { Component } from "react";
+import DatePicker from "react-native-datepicker";
 
 export default class DatepickerTest extends Component {
-  constructor(props){
-    super(props)
-    this.state = {date:"2019-06-29"}
+  constructor(props) {
+    super(props);
+    this.state = { date: "2019-09-19" };
   }
 
-  render(){
+  render() {
     return (
       <DatePicker
-        style={{width: 200}}
+        style={{ width: 200 }}
         date={this.state.date}
         mode="date"
         placeholder="select date"
@@ -21,7 +21,7 @@ export default class DatepickerTest extends Component {
         cancelBtnText="取消"
         customStyles={{
           dateIcon: {
-            position: 'absolute',
+            position: "absolute",
             left: 0,
             top: 4,
             marginLeft: 0
@@ -29,10 +29,11 @@ export default class DatepickerTest extends Component {
           dateInput: {
             marginLeft: 36
           }
-        
         }}
-        onDateChange={(date) => {this.setState({date: date})}}
+        onDateChange={date => {
+          this.setState({ date: date });
+        }}
       />
-    )
+    );
   }
 }

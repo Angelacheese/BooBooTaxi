@@ -1,7 +1,4 @@
 import React from "react";
-import { Icon } from "react-native-elements";
-import { LinearGradient } from "expo-linear-gradient";
-import LottieView from "lottie-react-native";
 import {
   StyleSheet,
   Text,
@@ -9,7 +6,6 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  Component,
   Animated,
   Dimensions,
   ImageBackground
@@ -22,17 +18,20 @@ import {
   CardButton,
   CardImage
 } from "react-native-cards";
+import { Icon, Divider } from "react-native-elements";
+import { LinearGradient } from "expo-linear-gradient";
+import LottieView from "lottie-react-native";
 import Swiper from "react-native-swiper";
-//var {width,height}=Dimensions.get('window')
+var { width, height } = Dimensions.get("window");
 
-class Home extends React.Component {
+export default class Home extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: "B o o B o o",
     headerLeft: (
       <TouchableOpacity
         onPress={() => navigation.toggleDrawer()}
         style={{
-          marginLeft: 10
+          margin: 10
         }}
       >
         <Icon name="menu" color="#fddb92" />
@@ -41,9 +40,9 @@ class Home extends React.Component {
     headerRight: (
       <TouchableOpacity
         style={{
-          marginRight: 10
+          margin: 10
         }}
-        onPress={() => navigation.navigate("Login1")}
+        //  onPress={() => navigation.navigate("Login1")}
       >
         <Icon name="home" color="#fddb92" />
       </TouchableOpacity>
@@ -53,7 +52,8 @@ class Home extends React.Component {
   state = {
     left: new Animated.Value(-40)
   };
-  //////////////////
+
+  ///TOP 10 BEST Guides
   _BestGuideCards() {
     return (
       <View flexDirection="row" margin={1}>
@@ -62,7 +62,6 @@ class Home extends React.Component {
             source={require("./pic/[Home]Guide1.png")}
             style={{ width: "100%", height: "100%" }}
           />
-          <CardTitle subtitle=" " />
           <CardContent justifyContent="center" text="⭐️⭐️⭐️⭐️⭐️" />
           <CardAction separator={true}>
             <CardButton
@@ -73,13 +72,11 @@ class Home extends React.Component {
             <CardButton onPress={() => {}} title="我要預約" color="#fddb92" />
           </CardAction>
         </Card>
-
         <Card style={{ width: "100%", height: 220 }}>
           <CardImage
             source={require("./pic/[Home]Guide2.png")}
             style={{ width: "100%", height: "100%" }}
           />
-          <CardTitle subtitle=" " />
           <CardContent justifyContent="center" text="⭐️⭐️⭐️⭐️⭐️" />
           <CardAction separator={true}>
             <CardButton
@@ -118,34 +115,33 @@ class Home extends React.Component {
     Animated.sequence([
       Animated.timing(this.state.left, {
         toValue: 25,
-        duration: 1000
+        duration: 5000
       }),
 
       Animated.timing(this.state.left, {
         toValue: -30,
-        duration: 1000
+        duration: 5000
       })
     ]).start(() => {
       this._cycleAnimation();
     });
   }
   componentDidMount() {
-    this.animation0.play();
-
+    //this._cycleAnimation();
     this.animation1.play();
-
     this.animation2.play();
+    this.animation3.play();
   }
 
   resetAnimation = () => {
-    this.animation0.reset();
-    this.animation0.play();
-
     this.animation1.reset();
     this.animation1.play();
 
     this.animation2.reset();
     this.animation2.play();
+
+    this.animation3.reset();
+    this.animation3.play();
   };
 
   render() {
@@ -158,19 +154,12 @@ class Home extends React.Component {
           activeDotColor="gray"
         >
           <View style={styles.slide}>
-            <ImageBackground
+            <Image
               source={{
                 uri: "https://img.oreo.blog/uploads/20190206233042_57.jpg"
               }}
               style={{ width: "100%", height: 280 }}
-            >
-              <Text
-                style={styles.footText}
-                onPress={() => this.props.navigation.navigate("InmediateCall1")}
-              >
-                START
-              </Text>
-            </ImageBackground>
+            />
           </View>
           <View style={styles.slide}>
             <Image
@@ -178,71 +167,83 @@ class Home extends React.Component {
               style={{ width: "100%", height: 280 }}
             />
           </View>
-          {this._HomeSwipers()}
+          <View style={styles.slide}>
+            <Image
+              source={{
+                uri:
+                  "https://i0.wp.com/img.dwplay.com.tw/pixnet/c7abea28f57f706123edbce9595330cf.jpg"
+              }}
+              style={{ width: "100%", height: 280 }}
+            />
+          </View>
+          {/* {this._HomeSwipers()} */}
         </Swiper>
-
         <View style={styles.titleView}>
           <LottieView
-            ref={animation0 => {
-              this.animation0 = animation0;
+            ref={animation1 => {
+              this.animation1 = animation1;
             }}
             source={require("./4340-pew-pew.json")}
           />
-          <Text style={styles.titleText}>WHAT can we do for you ?</Text>
+          <Text style={styles.titleText}>WHAT can we do for you</Text>
         </View>
-
-        <ImageBackground
-          source={require("./S__8290309.jpg")}
-          style={styles.buttonbg}
-        >
+        <View style={{ alignItems: "center" }}>
           <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate("test1")}
+            onPress={() => this.props.navigation.navigate("InmediateCall1")}
           >
-            <Text style={buttons.buttontext}>即時叫車</Text>
+            <ImageBackground
+              source={require("./S__8290309.jpg")}
+              style={styles.buttonbg}
+            >
+              <View style={styles.button}>
+                <Text style={buttons.buttontext}>即時叫車</Text>
+              </View>
+            </ImageBackground>
           </TouchableOpacity>
-        </ImageBackground>
 
-        <ImageBackground
-          source={require("./S__8273922.jpg")}
-          style={styles.buttonbg}
-        >
           <TouchableOpacity
-            style={styles.button}
             onPress={() => this.props.navigation.navigate("BestGuide1")}
           >
-            <Text style={buttons.buttontext}>最佳車導</Text>
+            <ImageBackground
+              source={require("./S__8273922.jpg")}
+              style={styles.buttonbg}
+            >
+              <View style={styles.button}>
+                <Text style={buttons.buttontext}>最佳車導</Text>
+              </View>
+            </ImageBackground>
           </TouchableOpacity>
-        </ImageBackground>
 
-        <ImageBackground
-          source={require("./S__8290308.jpg")}
-          style={styles.buttonbg}
-        >
           <TouchableOpacity
-            style={styles.button}
             onPress={() => this.props.navigation.navigate("HistoryRoute1")}
           >
-            <Text style={buttons.buttontext}>歷史路線</Text>
+            <ImageBackground
+              source={require("./S__8290308.jpg")}
+              style={styles.buttonbg}
+            >
+              <View style={styles.button}>
+                <Text style={buttons.buttontext}>歷史路線</Text>
+              </View>
+            </ImageBackground>
           </TouchableOpacity>
-        </ImageBackground>
 
-        <ImageBackground
-          source={require("./S__8282114.jpg")}
-          style={styles.buttonbg}
-        >
           <TouchableOpacity
-            style={styles.button}
             onPress={() => this.props.navigation.navigate("CommonRoute1")}
           >
-            <Text style={buttons.buttontext}>常用路線</Text>
+            <ImageBackground
+              source={require("./S__8282114.jpg")}
+              style={styles.buttonbg}
+            >
+              <View style={styles.button}>
+                <Text style={buttons.buttontext}>常用路線</Text>
+              </View>
+            </ImageBackground>
           </TouchableOpacity>
-        </ImageBackground>
-
+        </View>
         <View flexDirection="row" justifyContent="center" margin={10}>
           <TouchableOpacity
             style={styles.personalBorder}
-            onPress={() => this.props.navigation.navigate("Chat")}
+            onPress={() => this.props.navigation.navigate("PassengerOrder")}
           >
             <Icon name="face" color="#ccc" size={50} margin={15} />
             <Text style={{ color: "#ccc" }}>聊天室</Text>
@@ -250,7 +251,7 @@ class Home extends React.Component {
 
           <TouchableOpacity
             style={styles.personalBorder}
-            onPress={() => this.props.navigation.navigate("test3")}
+            onPress={() => this.props.navigation.navigate("Calender")}
           >
             <Icon name="favorite" color="#ccc" size={50} margin={15} />
             <Text style={{ color: "#ccc" }}>行事曆</Text>
@@ -264,20 +265,15 @@ class Home extends React.Component {
             <Text style={{ color: "#ccc" }}>會員資訊</Text>
           </TouchableOpacity>
         </View>
-
+        <Divider style={{ backgroundColor: "#ccc", margin: 10 }} />
         <View style={styles.titleView}>
           <LottieView
-            ref={animation1 => {
-              this.animation1 = animation1;
+            ref={animation2 => {
+              this.animation2 = animation2;
             }}
             source={require("./4340-pew-pew.json")}
           />
           <Text style={styles.titleText}>TOP 10 BEST Guides !</Text>
-          {/* <Animated.View
-            {...this._cycleAnimation()}
-            style={styles.titleAnimation}
-            left={this.state.left}
-          /> */}
         </View>
 
         <View
@@ -287,7 +283,7 @@ class Home extends React.Component {
         >
           <Swiper
             showsButtons={false}
-            autoplay={true}
+            autoplay={false}
             dotColor="transparent"
             activeDotColor="transparent"
           >
@@ -295,11 +291,11 @@ class Home extends React.Component {
             {this._BestGuideCards()}
           </Swiper>
         </View>
-
+        <Divider style={{ backgroundColor: "#ccc", margin: 10 }} />
         <View style={styles.titleView}>
           <LottieView
-            ref={animation2 => {
-              this.animation2 = animation2;
+            ref={animation3 => {
+              this.animation3 = animation3;
             }}
             source={require("./4340-pew-pew.json")}
           />
@@ -310,7 +306,17 @@ class Home extends React.Component {
             left={this.state.left}
           /> */}
         </View>
-
+        {/* <View flexDirection="row" justifyContent="center">
+          <TouchableOpacity style={buttons.area}>
+            <Text style={styles.titleText}>系統推薦</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={buttons.area}
+            onPress={() => this.props.navigation.navigate("GuidePackage1")}
+          >
+            <Text style={styles.titleText}>車導推薦</Text>
+          </TouchableOpacity>
+        </View> */}
         <View justifyContent="center">
           <TouchableOpacity>
             <Image
@@ -330,17 +336,6 @@ class Home extends React.Component {
               style={{ width: "100%", height: 300 }}
             />
           </TouchableOpacity>
-          <View flexDirection="row" justifyContent="center">
-            <TouchableOpacity style={buttons.area}>
-              <Text color="yellow">系統推薦</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={buttons.area}
-              onPress={() => this.props.navigation.navigate("GuidePackage1")}
-            >
-              <Text color="yellow">車導推薦</Text>
-            </TouchableOpacity>
-          </View>
         </View>
       </ScrollView>
     );
@@ -353,8 +348,8 @@ const styles = StyleSheet.create({
   },
 
   slide: {
-    width: "100%",
-    height: "100%",
+    width: width,
+    height: height,
     justifyContent: "flex-start",
     alignItems: "center"
   },
@@ -369,7 +364,6 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderWidth: 2,
     color: "white",
-
     opacity: 0.7
   },
   text: {
@@ -391,31 +385,33 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    opacity: 0.8,
+    opacity: 0.8
 
     //borderBottomRightRadius: 400
   },
   buttonbg: {
-    width: "100%",
+    width: width - 10,
     height: 100,
     shadowColor: "gray",
     margin: 2,
     shadowOffset: {
-      height: 1
+     height: 2, width: 2 
     },
+    shadowRadius: 2,
     shadowOpacity: 0.9
   },
 
   //////
 
   titleView: {
+    width: "100%",
     height: 70,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row"
   },
   titleText: {
-    color: "white",
+    color: "#fddb92",
     fontSize: 20
   },
   titleAnimation: {
@@ -428,6 +424,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.2,
     top: 8
   },
+  ////////
   personalBorder: {
     width: 120,
     height: 120,
@@ -441,16 +438,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const lines = StyleSheet.create({
-  line: {
-    borderWidth: 7,
-    borderColor: "khaki"
-  },
-  hr: {
-    borderWidth: 5,
-    borderColor: "lightyellow"
-  }
-});
 
 ///////////////////////所有button樣式///////////////////
 // const linearGradients = StyleSheet.create({
@@ -482,5 +469,3 @@ const buttons = StyleSheet.create({
     justifyContent: "center"
   }
 });
-
-export default Home;

@@ -1,5 +1,3 @@
-"use strict";
-
 import React, { Component } from "react";
 import {
   StyleSheet,
@@ -12,31 +10,25 @@ import {
   Animated,
   Button,
   TextInput,
-  Modal,
   TouchableHighlight,
   Dimensions
 } from "react-native";
 import GestureRecognizer, {
   swipeDirections
 } from "react-native-swipe-gestures";
-import DatepickerTest from "./DatepickerTest";
+import DatePicker from "react-native-datepicker";
+import { Dropdown } from "react-native-material-dropdown";
 
 class SomeComponent extends Component {
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = () => ({
     title: "最佳車導"
   });
   constructor(props) {
     super(props);
     this.state = {
-      Displayed0: false,
-      Displayed1: false,
-      Displayed2: false,
-      Displayed3: false,
-      Displayed4: false,
-      Displayed5: false,
-      pickerSelection: " ",
+      place: " ",
       person: " ",
-      myText: "I'm ready to get swiped!",
+
       gestureName: "none",
       upperBound: 1,
       allDays: [
@@ -53,33 +45,10 @@ class SomeComponent extends Component {
       menuitems: [0, 0, 0]
     };
   }
-  _onPress(onpressNum) {
-    switch (onpressNum) {
-      case 0: //預約地點
-        this.setState({ Displayed0: !this.state.Displayed0 });
-        break;
-      case 1: //預約人數
-        this.setState({ Displayed1: !this.state.Displayed1 });
-        break;
-      case 2: //預約天數
-        this.setState({ Displayed2: !this.state.Displayed2 });
-        break;
-      case 3: //預約時數
-        this.setState({ Displayed3: !this.state.Displayed3 });
-        break;
-      case 4: //預約時間(時)
-        this.setState({ Displayed4: !this.state.Displayed4 });
-        break;
-      case 5: //預約時間(分)
-        this.setState({ Displayed5: !this.state.Displayed5 });
-        break;
-    }
-  }
 
   _Places(newValue) {
     this.setState({
-      pickerSelection: newValue,
-      Displayed0: !this.state.Displayed0
+      place: newValue
     });
   }
   _wherePlaces() {
@@ -175,89 +144,51 @@ class SomeComponent extends Component {
       { title: "取消", value: " " }
     ];
     return (
-      <View style={styles.border}>
-        <Text style={styles.text}>旅遊地點：{this.state.pickerSelection}</Text>
-
-        <TouchableOpacity onPress={() => this._onPress(0)}>
-          <Text style={styles.button}>|選擇</Text>
-        </TouchableOpacity>
-        <Modal
-          visible={this.state.Displayed0}
-          animationType={"slide"}
-          transparent={true}
-        >
-          <View style={styles.modal}>
-            <ScrollView>
-              {pickerValues.map((value, index) => {
-                return (
-                  <TouchableHighlight
-                    key={index}
-                    onPress={() => this._Places(value.value)}
-                    style={{ paddingTop: 4, paddingBottom: 4 }}
-                  >
-                    <Text style={styles.modalText}>{value.title}</Text>
-                  </TouchableHighlight>
-                );
-              })}
-            </ScrollView>
-          </View>
-        </Modal>
+      <View margin={5}>
+        <Dropdown
+          label="旅遊地點"
+          data={pickerValues}
+          onChangeText={title => this._Places(title)}
+          textColor="#ccc"
+          baseColor="white"
+          selectedItemColor="powderblue"
+        />
       </View>
     );
   }
 
   _People(newValue) {
     this.setState({
-      person: newValue,
-      Displayed1: !this.state.Displayed1
+      person: newValue
     });
   }
   _howManypeople() {
     const person = [
-      { title: "1", value: 1 },
-      { title: "2", value: 2 },
-      { title: "3", value: 3 },
-      { title: "4", value: 4 },
-      { title: "5", value: 5 },
-      { title: "6", value: 6 },
-      { title: "7", value: 7 },
-      { title: "取消", value: "" }
+      { value: "1" },
+      { value: "2" },
+      { value: "3" },
+      { value: "4" },
+      { value: "5" },
+      { value: "6" },
+      { value: "7" },
+      { value: "取消" }
     ];
     return (
-      <View style={styles.border}>
-        <Text style={styles.text}>包車人數：{this.state.person}</Text>
-
-        <TouchableOpacity onPress={() => this._onPress(1)}>
-          <Text style={styles.button}>|選擇</Text>
-        </TouchableOpacity>
-        <Modal
-          visible={this.state.Displayed1}
-          animationType={"slide"}
-          transparent={true}
-        >
-          <View style={styles.modal}>
-            <ScrollView>
-              {person.map((value, index) => {
-                return (
-                  <TouchableHighlight
-                    key={index}
-                    onPress={() => this._People(value.value)}
-                    style={{ paddingTop: 4, paddingBottom: 4 }}
-                  >
-                    <Text style={styles.modalText}>{value.title}</Text>
-                  </TouchableHighlight>
-                );
-              })}
-            </ScrollView>
-          </View>
-        </Modal>
+      <View margin={5}>
+        <Dropdown
+          label="包車人數"
+          data={person}
+          onChangeText={value => this._People(value)}
+          textColor="#ccc"
+          baseColor="white"
+          selectedItemColor="powderblue"
+        />
       </View>
     );
   }
 
   _Days(newValue) {
     this.setState({
-      Displayed2: !this.state.Displayed2,
       upperBound: newValue
     });
   }
@@ -273,33 +204,15 @@ class SomeComponent extends Component {
       { title: "取消", value: "" }
     ];
     return (
-      <View style={styles.border}>
-        <Text style={styles.text}>預約天數：{this.state.upperBound}</Text>
-
-        <TouchableOpacity onPress={() => this._onPress(2)}>
-          <Text style={styles.button}>|選擇</Text>
-        </TouchableOpacity>
-        <Modal
-          visible={this.state.Displayed2}
-          animationType={"slide"}
-          transparent={true}
-        >
-          <View style={styles.modal}>
-            <ScrollView>
-              {day.map((value, index) => {
-                return (
-                  <TouchableHighlight
-                    key={index}
-                    onPress={() => this._Days(value.value)}
-                    style={{ paddingTop: 4, paddingBottom: 4 }}
-                  >
-                    <Text style={styles.modalText}>{value.title}</Text>
-                  </TouchableHighlight>
-                );
-              })}
-            </ScrollView>
-          </View>
-        </Modal>
+      <View margin={5}>
+        <Dropdown
+          label="預約天數"
+          data={day}
+          onChangeText={value => this._Days(value)}
+          textColor="#ccc"
+          baseColor="white"
+          selectedItemColor="powderblue"
+        />
       </View>
     );
   }
@@ -308,7 +221,6 @@ class SomeComponent extends Component {
     arraycopy[this.state.currentItem].splice(0, 1, newValue);
 
     this.setState({
-      Displayed3: !this.state.Displayed3,
       alldays: arraycopy
     });
   }
@@ -322,36 +234,18 @@ class SomeComponent extends Component {
       { title: "6", value: 6 },
       { title: "7", value: 7 },
       { title: "8", value: 8 },
-      { title: "取消", value: " " }
+      { title: "取消", value: 0 }
     ];
     return (
-      <View flexDirection="row">
-        <Text style={styles.text}>預約時數：</Text>
-
-        <TouchableOpacity onPress={() => this._onPress(3)}>
-          <Text style={styles.button}>|選擇</Text>
-        </TouchableOpacity>
-        <Modal
-          visible={this.state.Displayed3}
-          animationType={"slide"}
-          transparent={true}
-        >
-          <View style={styles.modal}>
-            <ScrollView>
-              {hour.map((value, index) => {
-                return (
-                  <TouchableHighlight
-                    key={index}
-                    onPress={() => this._Hours(value.value)}
-                    style={{ paddingTop: 4, paddingBottom: 4 }}
-                  >
-                    <Text style={styles.modalText}>{value.title}</Text>
-                  </TouchableHighlight>
-                );
-              })}
-            </ScrollView>
-          </View>
-        </Modal>
+      <View margin={5}>
+        <Dropdown
+          label="預約時數"
+          data={hour}
+          onChangeText={value => this._Hours(value)}
+          textColor="#ccc"
+          baseColor="white"
+          selectedItemColor="powderblue"
+        />
       </View>
     );
   }
@@ -360,7 +254,6 @@ class SomeComponent extends Component {
     arraycopy[this.state.currentItem].splice(1, 1, newValue);
 
     this.setState({
-      Displayed4: !this.state.Displayed4,
       alldays: arraycopy
     });
   }
@@ -393,33 +286,15 @@ class SomeComponent extends Component {
       { title: "取消", value: " " }
     ];
     return (
-      <View flexDirection="row">
-        <Text style={styles.text}>預約時：</Text>
-
-        <TouchableOpacity onPress={() => this._onPress(4)}>
-          <Text style={styles.button}>|選擇</Text>
-        </TouchableOpacity>
-        <Modal
-          visible={this.state.Displayed4}
-          animationType={"slide"}
-          transparent={true}
-        >
-          <View style={styles.modal}>
-            <ScrollView>
-              {time.map((value, index) => {
-                return (
-                  <TouchableHighlight
-                    key={index}
-                    onPress={() => this._Times(value.value)}
-                    style={{ paddingTop: 4, paddingBottom: 4 }}
-                  >
-                    <Text style={styles.modalText}>{value.title}</Text>
-                  </TouchableHighlight>
-                );
-              })}
-            </ScrollView>
-          </View>
-        </Modal>
+      <View margin={5}>
+        <Dropdown
+          label="時"
+          data={time}
+          onChangeText={value => this._Times(value)}
+          textColor="#ccc"
+          baseColor="white"
+          selectedItemColor="powderblue"
+        />
       </View>
     );
   }
@@ -428,7 +303,6 @@ class SomeComponent extends Component {
     arraycopy[this.state.currentItem].splice(2, 1, newValue);
 
     this.setState({
-      Displayed5: !this.state.Displayed5,
       alldays: arraycopy
     });
   }
@@ -441,40 +315,20 @@ class SomeComponent extends Component {
       { title: "取消", value: " " }
     ];
     return (
-      <View flexDirection="row">
-        <Text style={styles.text}>預約分：</Text>
-
-        <TouchableOpacity onPress={() => this._onPress(5)}>
-          <Text style={styles.button}>|選擇</Text>
-        </TouchableOpacity>
-        <Modal
-          visible={this.state.Displayed5}
-          animationType={"slide"}
-          transparent={true}
-        >
-          <View style={styles.modal}>
-            <ScrollView>
-              {minute.map((value, index) => {
-                return (
-                  <TouchableHighlight
-                    key={index}
-                    onPress={() => this._Minutes(value.value)}
-                    style={{ paddingTop: 4, paddingBottom: 4 }}
-                  >
-                    <Text style={styles.modalText}>{value.title}</Text>
-                  </TouchableHighlight>
-                );
-              })}
-            </ScrollView>
-          </View>
-        </Modal>
+      <View margin={5}>
+        <Dropdown
+          label="分"
+          data={minute}
+          onChangeText={value => this._Minutes(value)}
+          textColor="#ccc"
+          baseColor="white"
+          selectedItemColor="powderblue"
+        />
       </View>
     );
   }
 
   _onSwipeRight(gestureState) {
-    this.setState({ myText: "You swiped left!" });
-
     this.setState({
       currentItem: Math.max(this.state.currentItem - 1, 1),
       menuitems: [...this.state.allDays[this.state.currentItem]]
@@ -482,8 +336,6 @@ class SomeComponent extends Component {
   }
 
   _onSwipeLeft(gestureState) {
-    this.setState({ myText: "You swiped right!" });
-
     this.setState({
       currentItem: Math.min(this.state.currentItem + 1, this.state.upperBound),
       menuitems: [...this.state.allDays[this.state.currentItem]]
@@ -501,13 +353,9 @@ class SomeComponent extends Component {
     };
 
     return (
-      <View style={{ flex: 1 }} backgroundColor="#001540">
+      <View style={{ flex: 1, backgroundColor: "#001540" }}>
         {this._wherePlaces()}
         {this._howManypeople()}
-        <View style={styles.border}>
-          <Text style={styles.text}>預約日期：</Text>
-          <DatepickerTest style={styles.text} />
-        </View>
         {this._howManydays()}
 
         <GestureRecognizer
@@ -519,11 +367,11 @@ class SomeComponent extends Component {
           <View
             style={{
               margin: 10,
-              height: 310,
-              margin: 10,
-              width: "95%",
+              height: 350,
+              top: 10,
+              width: "96%",
               backgroundColor: "transparent",
-              borderWidth: 3,
+              borderWidth: 1,
               borderColor: "#fddb92",
               borderRadius: 10
             }}
@@ -532,21 +380,17 @@ class SomeComponent extends Component {
             {this._howManyhours()}
             {this._howManytimes()}
             {this._howManyminutes()}
-            <FlatList
-              data={this.state.menuitems}
-              renderItem={({ item, index }) => (
-                <View flexDirection="row" key={index}>
-                  <Text style={styles.text}>{item}</Text>
-                </View>
-              )}
-            />
+
+            <Text style={styles.text}>
+              預約時間 {this.state.menuitems[1]}:{this.state.menuitems[2]}
+            </Text>
           </View>
         </GestureRecognizer>
         <View style={{ alignItems: "center", justifyContent: "center" }}>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate("BestGuide3")}
           >
-            <Text style={styles.buttonContainer}>下一步</Text>
+            <Text style={styles.buttonNext}>下一步</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -555,45 +399,15 @@ class SomeComponent extends Component {
 }
 
 const styles = StyleSheet.create({
-  modal: {
-    bottom: 0,
-    backgroundColor: "#ccc",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    height: 200,
-    width: "100%"
-  },
-  modalText: {
-    color: "black",
+  buttonNext: {
     fontSize: 20,
-    margin: 5
-  },
-  ///////
-  buttonContainer: {
-    fontSize: 20,
-    color: "#fddb92"
-  },
-  ////////////////選擇的樣式
-  border: {
-    height: 50,
-    flexDirection: "row",
-    alignItems: "center",
-    margin: 10,
-    width: "95%",
-    backgroundColor: "transparent",
-    borderWidth: 0.5,
-    borderColor: "#fddb92",
-    borderRadius: 10
-  },
-  text: {
-    color: "#ccc",
-    fontSize: 20,
+    color: "#fddb92",
     margin: 10
   },
-  button: {
-    color: "powderblue",
-    fontSize: 15,
+
+  text: {
+    color: "white",
+    fontSize: 20,
     margin: 10
   }
 });

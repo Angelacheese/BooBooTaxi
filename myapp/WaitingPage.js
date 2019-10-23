@@ -14,7 +14,7 @@ import LottieView from "lottie-react-native";
 
 export default class WaitingPage extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "載入中..."
+    title: "等待中..."
   });
   state = {
     logoOpacity: new Animated.Value(0)
@@ -28,7 +28,7 @@ export default class WaitingPage extends Component {
         duration: 8500
       })
     ]).start(() => {
-      this.props.navigation.navigate("BestGuide7");
+      this.props.navigation.navigate("PassengerOrder");
     });
   }
 
@@ -64,7 +64,7 @@ export default class WaitingPage extends Component {
           <Animated.Text
             style={{ ...styles.title, opacity: this.state.logoOpacity }}
           >
-            正在尋找您的司機...
+            正在尋找您的司機
           </Animated.Text>
         </LinearGradient>
       </View>

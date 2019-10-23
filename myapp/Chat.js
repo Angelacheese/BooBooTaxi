@@ -1,118 +1,102 @@
 import React, { Component } from "react";
 import {
-  Animated,
-  Dimensions,
-  ScrollView,
-  StyleSheet,
   Text,
+  Button,
   View,
-  TouchableHighlight,
-  Modal,
-  Button
+  StyleSheet,
+  Image,
+  TouchableOpacity
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import LottieView from "lottie-react-native";
+class Bestguide7 extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: "聊天室"
+  });
+  constructor(props) {
+    super(props);
+    this.state = {
+      passenger: "IU李知恩",
+      driver: "劉以豪"
+    };
+  }
+  async componentDidMount() {
+    this.animation.play();
+  }
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
-
-const xOffset = new Animated.Value(0);
-
-const Screen = props => {
-  return (
-    <View style={{ flex: 1 }}>
-      <View style={styles.scrollPage}>
-        <Animated.View
-          style={[styles.screen, transitionAnimation(props.index)]}
-        >
-          <Text style={styles.text}>{props.text}</Text>
-        </Animated.View>
-      </View>
-    </View>
-  );
-};
-
-const transitionAnimation = index => {
-  return {
-    transform: [
-      { perspective: 800 },
-      {
-        scale: xOffset.interpolate({
-          inputRange: [
-            (index - 1) * SCREEN_WIDTH,
-            index * SCREEN_WIDTH,
-            (index + 1) * SCREEN_WIDTH
-          ],
-          outputRange: [0.25, 1, 0.25]
-        })
-      },
-      {
-        rotateX: xOffset.interpolate({
-          inputRange: [
-            (index - 1) * SCREEN_WIDTH,
-            index * SCREEN_WIDTH,
-            (index + 1) * SCREEN_WIDTH
-          ],
-          outputRange: ["45deg", "0deg", "45deg"]
-        })
-      },
-      {
-        rotateY: xOffset.interpolate({
-          inputRange: [
-            (index - 1) * SCREEN_WIDTH,
-            index * SCREEN_WIDTH,
-            (index + 1) * SCREEN_WIDTH
-          ],
-          outputRange: ["-45deg", "0deg", "45deg"]
-        })
-      }
-    ]
+  resetAnimation = () => {
+    this.animation.reset();
+    this.animation.play();
   };
-};
 
-export default class App extends Component {
   render() {
     return (
-      <View style={{ height:350, backgroundColor: "#FFDD55" }}>
-        <Animated.ScrollView
-          scrollEventThrottle={16}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { x: xOffset } } }],
-            { useNativeDriver: true }
-          )}
-          horizontal
-          pagingEnabled
-          style={styles.scrollView}
-        >
-          <Screen text="Day 1" index={0} />
-          <Screen text="Day 2" index={1} />
-          <Screen text="Day 3" index={2} />
-          <Screen text="Day 4" index={3} />
-          <Screen text="Day 5" index={4} />
-          <Screen text="Day 6" index={5} />
-          <Screen text="Day 7" index={6} />
-        </Animated.ScrollView>
+      <View flex={1} backgroundColor="#001540">
+        <View style={{ flexDirection: "row" }}>
+          <Image
+            source={require("./pic/[Member]IU.jpg")}
+            style={styles.circle}
+          />
+          <LottieView
+            ref={animation => {
+              this.animation = animation;
+            }}
+            style={{
+              top: 10,
+              width: 60,
+              height: 60
+            }}
+            source={require("./4276-vpn-connection-animation.json")}
+          />
+
+          <Image
+            source={require("./pic/[BestGuide7]ryu.jpg")}
+            style={{ ...styles.circle, left: 110 }}
+          />
+        </View>
+
+        <View style={{ alignItems: "center" }}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate("Chat")}
+          >
+            <Text style={styles.buttonNext}>與司機聯絡</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate("Home")}
+          >
+            <Text style={styles.buttonNext}>回首頁</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
-  scrollView: {
-    flexDirection: "row",
-    backgroundColor: "#FFDD55",
-    flex: 2
-  },
-  scrollPage: {
-    width: SCREEN_WIDTH,
-    padding: 20
-  },
-  screen: {
-    height: 300,
+  container: {
+    flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 25,
-    backgroundColor: "white"
+    alignItems: "center"
+  },
+  circle: {
+    margin: 10,
+    width: 100,
+    height: 100,
+    borderRadius: 50
+  },
+  titleText: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "#fddb92",
+    margin: 10
   },
   text: {
-    fontSize: 45,
-    fontWeight: "bold"
+    color: "white",
+    margin: 10
+  },
+  buttonNext: {
+    fontSize: 20,
+    color: "#fddb92",
+    margin: 10
   }
 });
+export default Bestguide7;

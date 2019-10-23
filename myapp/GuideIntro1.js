@@ -1,154 +1,103 @@
 import React from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import { Icon } from "react-native-elements";
 import {
   StyleSheet,
   Text,
   View,
   ScrollView,
   TouchableOpacity,
+  TextInput,
   Image,
-  StatusBar
+  StatusBar,
+  ImageBackground
 } from "react-native";
-import IconBadge from 'react-native-icon-badge';
-class GuideIntro1 extends React.Component {
-  render() {
-    data = [
-      "年資:",
-      "車牌號碼:",
-      "車子型號:",
-      "可載客人數:",
-      "熟悉地:",
-      "擅長語言",
-      "特色:",
-      "自我介紹:"
-    ];
+import { LinearGradient } from "expo-linear-gradient";
+import DatepickerTest from "./DatepickerTest";
+class Member1 extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: "會員資料"
+  });
+  constructor(props) {
+    super(props);
+    this.state = {
+      driver: "劉以豪",
+      年資: 10,
+      車子型號: "TOYOTA-WISH",
+      可載客人數: 4,
+      星級: 5,
+      熟悉地: "台中",
+      年齡: "31~40",
+      車牌號碼: "RYU-0812",
+      語言: "中文、英文",
+      特色: "戶外達人",
+      自我介紹: " "
+    };
+  }
 
+  render() {
     return (
-      <ScrollView style={{ flex: 1 }}>
-        <LinearGradient
-          colors={["#fddb92", "#ffecd2", "#fdfbfb"]}
+      <ScrollView style={{ flex: 1 }} backgroundColor="#001540">
+        <ImageBackground
           style={{
             width: "100%",
-            height: "100%"
+            height: 200,
+            justifyContent: "flex-end",
+            alignItems: "center",
+            borderBottomRightRadius: 200,
+            borderBottomLeftRadius: 200,
+            backgroundColor: "#9face6"
           }}
         >
-          <View style={{ flexDirection: "row", margin: 10  }}>
+          <Image
+            source={require("./pic/[BestGuide7]ryu.jpg")}
+            style={styles.circle}
+          />
+        </ImageBackground>
 
-
-
-
-          <View style={{flexDirection: 'row',alignItems: 'center',justifyContent: 'center',}}>
-  <IconBadge
-    MainElement={
-      <Image
-              source={{
-                uri:
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa4e2VF6cfou9oL0cc5OAzVTEbmAgFjIW2r-7lTkpOljG9k38N"
-              }}
-              style={styles.circle}
-            />
-    }
-    BadgeElement={
-      <Text style={{color:'#FFFFFF'}}>女</Text>
-    }
-    IconBadgeStyle={
-      {width:30,
-      height:20,
-      backgroundColor: '#FF00EE',
-      top:25,
-      right:25
-      }
-    }
-  
-    />
-</View>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          
-            <View >
-              <View  flexDirection= "row" justifyContent= "flex-end" width={185}>
-              <TouchableOpacity><Text fontSize={30} >收藏</Text>
-                <Icon name="add" color="#ccc" size={30} margin={5} /> 
-                      
-               </TouchableOpacity>
-             
-              </View>
-
-
-
-              <Text
-                style={{
-                  color: "brown", 
-                  fontSize: 30,
-                  textShadowColor: "gray",
-                  textShadowRadius: 3,
-                  textAlignVertical: "bottom"
-                }}
-              >
-                鍾嵐心
-              </Text>
-              <Text>⭐️⭐️⭐️⭐️⭐️</Text>
-            </View>
+        <View
+          style={{ flexDirection: "row", margin: 10, alignItems: "baseline" }}
+        >
+          <View>
+            <Text style={styles.titleText}>{this.state.driver}</Text>
+            <Text style={styles.titleText}>⭐⭐⭐⭐⭐</Text>
           </View>
+        </View>
 
-          <View
-            style={{
-              flex: 3,
-              justifyContent: "center"
-            }}
-          >
-            {data.map((item, index) => {
-              return (
-                <View key={index}>
-                  <Text
-                    style={{
-                      margin: 10,
-                      fontSize: 15
-                    }}
-                  >
-                    {item}
-                  </Text>
-                </View>
-              );
-            })}
-          </View>
+        <Text style={styles.text}>年資：{this.state.年資}</Text>
+        <Text style={styles.text}>車牌號碼：{this.state.車牌號碼}</Text>
+        <Text style={styles.text}>車子型號：{this.state.車子型號}</Text>
+        <Text style={styles.text}>可載客人數：{this.state.可載客人數}</Text>
+        <Text style={styles.text}>熟悉地：{this.state.熟悉地}</Text>
+        <Text style={styles.text}>擅長語言：{this.state.語言}</Text>
+        <Text style={styles.text}>特色：{this.state.特色}</Text>
+        <Text style={styles.text}>自我介紹：{this.state.自我介紹}</Text>
 
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center"
-            }}
-          >
-            <TouchableOpacity style={buttons.button}>
-              <Text>評價查看</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={buttons.button}>
-              <Text>歷程記錄</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={buttons.button}
-            onPress={() => this.props.navigation.navigate("GuidePackage1")}
-            >
-              <Text>車導帶你玩</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={buttons.button}>
-              <Text>行事曆</Text>
-            </TouchableOpacity>
-          </View>
-        </LinearGradient>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center"
+          }}
+        >
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.text}>評價查看</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.text}>歷程記錄</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}
+          onPress={() => this.props.navigation.navigate("GuidePackage1")}>
+            <Text style={styles.text}>車導帶你玩</Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center"
+          }}
+        >
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.text}>車導行事曆</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     );
   }
@@ -156,45 +105,39 @@ class GuideIntro1 extends React.Component {
 
 const styles = StyleSheet.create({
   circle: {
-    marginRight: 10,
+    top: 40,
     width: 200,
     height: 200,
     borderRadius: 100
   },
-  container: {
-    flex: 1,
-    backgroundColor: "#1FB9FF"
-  }
-});
-
-const lines = StyleSheet.create({
-  line: {
-    borderWidth: 0,
-    borderColor: "rosybrown",
+  titleText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fddb92",
     margin: 10
-  }
-});
-
-const buttons = StyleSheet.create({
-  button: {
-    width: 90,
-    height: 50,
-    margin: 3,
-    padding: 5,
-    borderRadius: 2,
-    alignItems: "center",
-    justifyContent: "center"
   },
-  center: {
-    flex: 1,
+  text: {
+    color: "white",
+    margin: 10
+  },
+  button: {
+    borderWidth: 0.5,
+    borderColor: "#fddb92",
+    borderRadius: 20,
+    width: 110,
+    height: 35,
+    margin: 5,
     justifyContent: "center",
     alignItems: "center"
   },
-  buttonText: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold"
+  textInput: {
+    height: 30,
+    width: 100,
+    borderColor: "#ccc",
+    borderStyle: "dashed",
+    borderWidth: 0.5,
+    color: "#ccc"
   }
 });
 
-export default GuideIntro1;
+export default Member1;

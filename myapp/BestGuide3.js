@@ -7,32 +7,18 @@ export default class BestGuide3 extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "最佳車導"
   });
-  componentDidMount() {
-    this.animation.play(30,120);
-    
-  }
 
-  resetAnimation = () => {
-    this.animation.reset();
-    this.animation.play();
-  };
   render() {
     return (
-      <View style={{flex:1,backgroundColor:"#001540"}}>
+      <View style={{ flex: 1, backgroundColor: "#001540" }}>
         <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center",flexDirection:'row' }}
-        >
-          <LottieView
-          ref={animation => {
-            this.animation = animation;
-          }}
           style={{
-            width: 100,
-            height: 100,
-            backgroundColor: '#eee',
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row"
           }}
-          source={require('./751-thumbs-up.json')}
-           />
+        >
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.navigation.navigate("BestGuide4")}
@@ -41,7 +27,12 @@ export default class BestGuide3 extends Component {
           </TouchableOpacity>
         </View>
         <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" ,flexDirection:'row'}}
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row"
+          }}
         >
           <TouchableOpacity
             style={styles.button}
@@ -74,5 +65,5 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     margin: 10
-  },
+  }
 });

@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
-
+import { Dropdown } from "react-native-material-dropdown";
 export default class Test extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: "最佳車導"
@@ -24,19 +24,14 @@ export default class Test extends React.Component {
 
     this.state = {
       age: " ",
-      ageDisplayed: false,
 
       sex: " ",
-      sexDisplayed: false,
 
       language: " ",
-      languageDisplayed: false,
 
       characteristic: " ",
-      characteristicDisplayed: false,
 
-      comment: " ",
-      commentDisplayed: false,
+      rate: " ",
 
       note: " "
     };
@@ -44,55 +39,29 @@ export default class Test extends React.Component {
 
   _setAge(newValue) {
     this.setState({
-      age: newValue,
-      ageDisplayed: !this.state.ageDisplayed
+      age: newValue
     });
   }
 
   _setSex(newValue) {
     this.setState({
-      sex: newValue,
-      sexDisplayed: !this.state.sexDisplayed
+      sex: newValue
     });
   }
   _setLanguage(newValue) {
     this.setState({
-      language: newValue,
-      languageDisplayed: !this.state.languageDisplayed
+      language: newValue
     });
   }
   _setCharacteristic(newValue) {
     this.setState({
-      characteristic: newValue,
-      characteristicDisplayed: !this.state.characteristicDisplayed
+      characteristic: newValue
     });
   }
-  _setComment(newValue) {
+  _setRate(newValue) {
     this.setState({
-      comment: newValue,
-      commentDisplayed: !this.state.commentDisplayed
+      rate: newValue
     });
-  }
-  _onPress(onpressNum) {
-    switch (onpressNum) {
-      case 0:
-        this.setState({ ageDisplayed: !this.state.ageDisplayed });
-        break;
-      case 1:
-        this.setState({ sexDisplayed: !this.state.sexDisplayed });
-        break;
-      case 2:
-        this.setState({ languageDisplayed: !this.state.languageDisplayed });
-        break;
-      case 3:
-        this.setState({
-          characteristicDisplayed: !this.state.characteristicDisplayed
-        });
-        break;
-      case 4:
-        this.setState({ commentDisplayed: !this.state.commentDisplayed });
-        break;
-    }
   }
 
   _Age() {
@@ -123,31 +92,17 @@ export default class Test extends React.Component {
       }
     ];
     return (
-      <View style={styles.border}>
-        <Text style={styles.text}>司機年齡：{this.state.age}</Text>
-
-        <TouchableOpacity onPress={() => this._onPress(0)}>
-          <Text style={styles.button}>|選擇</Text>
-        </TouchableOpacity>
-        <Modal
-          visible={this.state.ageDisplayed}
-          animationType={"slide"}
-          transparent={true}
-        >
-          <View style={styles.view}>
-            {age.map((value, index) => {
-              return (
-                <TouchableHighlight
-                  key={index}
-                  onPress={() => this._setAge(value.value)}
-                  style={{ paddingTop: 4, paddingBottom: 4 }}
-                >
-                  <Text style={{ color: "#efefef" }}>{value.title}</Text>
-                </TouchableHighlight>
-              );
-            })}
-          </View>
-        </Modal>
+      <View
+        style={{ width: "90%", alignItem: "center", justifyContent: "center" }}
+      >
+        <Dropdown
+          label="司機年齡"
+          data={age}
+          onChangeText={value => this._setAge(value)}
+          textColor="#ccc"
+          baseColor="white"
+          selectedItemColor="powderblue"
+        />
       </View>
     );
   }
@@ -168,31 +123,17 @@ export default class Test extends React.Component {
       }
     ];
     return (
-      <View style={styles.border}>
-        <Text style={styles.text}>司機性別：{this.state.sex}</Text>
-
-        <TouchableOpacity onPress={() => this._onPress(1)}>
-          <Text style={styles.button}>|選擇</Text>
-        </TouchableOpacity>
-        <Modal
-          visible={this.state.sexDisplayed}
-          animationType={"slide"}
-          transparent={true}
-        >
-          <View style={styles.view}>
-            {sex.map((value, index) => {
-              return (
-                <TouchableHighlight
-                  key={index}
-                  onPress={() => this._setSex(value.value)}
-                  style={{ paddingTop: 4, paddingBottom: 4 }}
-                >
-                  <Text style={{ color: "#efefef" }}>{value.title}</Text>
-                </TouchableHighlight>
-              );
-            })}
-          </View>
-        </Modal>
+      <View
+        style={{ width: "90%", alignItem: "center", justifyContent: "center" }}
+      >
+        <Dropdown
+          label="司機性別"
+          data={sex}
+          onChangeText={value => this._setSex(value)}
+          textColor="#ccc"
+          baseColor="white"
+          selectedItemColor="powderblue"
+        />
       </View>
     );
   }
@@ -221,31 +162,17 @@ export default class Test extends React.Component {
       }
     ];
     return (
-      <View style={styles.border}>
-        <Text style={styles.text}>擅長語言：{this.state.language}</Text>
-
-        <TouchableOpacity onPress={() => this._onPress(2)}>
-          <Text style={styles.button}>|選擇</Text>
-        </TouchableOpacity>
-        <Modal
-          visible={this.state.languageDisplayed}
-          animationType={"slide"}
-          transparent={true}
-        >
-          <View style={styles.view}>
-            {language.map((value, index) => {
-              return (
-                <TouchableHighlight
-                  key={index}
-                  onPress={() => this._setLanguage(value.value)}
-                  style={{ paddingTop: 4, paddingBottom: 4 }}
-                >
-                  <Text style={{ color: "#efefef" }}>{value.title}</Text>
-                </TouchableHighlight>
-              );
-            })}
-          </View>
-        </Modal>
+      <View
+        style={{ width: "90%", alignItem: "center", justifyContent: "center" }}
+      >
+        <Dropdown
+          label="擅長語言"
+          data={language}
+          onChangeText={value => this._setLanguage(value)}
+          textColor="#ccc"
+          baseColor="white"
+          selectedItemColor="powderblue"
+        />
       </View>
     );
   }
@@ -322,37 +249,23 @@ export default class Test extends React.Component {
       }
     ];
     return (
-      <View style={styles.border}>
-        <Text style={styles.text}>司機特質：{this.state.characteristic}</Text>
-
-        <TouchableOpacity onPress={() => this._onPress(3)}>
-          <Text style={styles.button}>|選擇</Text>
-        </TouchableOpacity>
-        <Modal
-          visible={this.state.characteristicDisplayed}
-          animationType={"slide"}
-          transparent={true}
-        >
-          <View style={styles.view}>
-            {characteristic.map((value, index) => {
-              return (
-                <TouchableHighlight
-                  key={index}
-                  onPress={() => this._setCharacteristic(value.value)}
-                  style={{ paddingTop: 4, paddingBottom: 4 }}
-                >
-                  <Text style={{ color: "#efefef" }}>{value.title}</Text>
-                </TouchableHighlight>
-              );
-            })}
-          </View>
-        </Modal>
+      <View
+        style={{ width: "90%", alignItem: "center", justifyContent: "center" }}
+      >
+        <Dropdown
+          label="司機特質"
+          data={characteristic}
+          onChangeText={value => this._setCharacteristic(value)}
+          textColor="#ccc"
+          baseColor="white"
+          selectedItemColor="powderblue"
+        />
       </View>
     );
   }
 
-  _Comment() {
-    const comment = [
+  _Rate() {
+    const rate = [
       {
         title: "皆可",
         value: " "
@@ -379,31 +292,17 @@ export default class Test extends React.Component {
       }
     ];
     return (
-      <View style={styles.border}>
-        <Text style={styles.text}>司機星級：{this.state.comment}</Text>
-
-        <TouchableOpacity onPress={() => this._onPress(4)}>
-          <Text style={styles.button}>|選擇</Text>
-        </TouchableOpacity>
-        <Modal
-          visible={this.state.commentDisplayed}
-          animationType={"slide"}
-          transparent={true}
-        >
-          <View style={styles.view}>
-            {comment.map((value, index) => {
-              return (
-                <TouchableHighlight
-                  key={index}
-                  onPress={() => this._setComment(value.value)}
-                  style={{ paddingTop: 4, paddingBottom: 4 }}
-                >
-                  <Text style={{ color: "#efefef" }}>{value.title}</Text>
-                </TouchableHighlight>
-              );
-            })}
-          </View>
-        </Modal>
+      <View
+        style={{ width: "90%", alignItem: "center", justifyContent: "center" }}
+      >
+        <Dropdown
+          label="司機星級"
+          data={rate}
+          onChangeText={value => this._setRate(value)}
+          textColor="#ccc"
+          baseColor="white"
+          selectedItemColor="powderblue"
+        />
       </View>
     );
   }
@@ -415,7 +314,7 @@ export default class Test extends React.Component {
         <TextInput
           style={{ height: 50, width: 100, color: "black" }}
           placeholder="備註欄"
-        ></TextInput>
+        />
       </View>
     );
   }
@@ -428,31 +327,33 @@ export default class Test extends React.Component {
           {this._Sex()}
           {this._Language()}
           {this._Characteristic()}
-          {this._Comment()}
+          {this._Rate()}
           {this._Note()}
-
-          <TouchableOpacity style={styles.button}>
-            <TouchableWithoutFeedback
-              style={{ backgroundColor: "powderblue" }}
-              onPress={() => {
-                Alert.alert("提示", "是否確定叫車", [
-                  {
-                    text: "取消",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
-                  },
-                  {
-                    text: "確定",
-                    onPress: () => this.props.navigation.navigate("WaitingPage")
-                  }
-                ]);
-              }}
-            >
-              <View>
-                <Text style={styles.text}> 預約叫車 </Text>
-              </View>
-            </TouchableWithoutFeedback>
-          </TouchableOpacity>
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <TouchableOpacity style={styles.button}>
+              <TouchableWithoutFeedback
+                style={{ backgroundColor: "powderblue" }}
+                onPress={() => {
+                  Alert.alert("提示", "是否確定叫車", [
+                    {
+                      text: "取消",
+                      onPress: () => console.log("Cancel Pressed"),
+                      style: "cancel"
+                    },
+                    {
+                      text: "確定",
+                      onPress: () =>
+                        this.props.navigation.navigate("WaitingPage")
+                    }
+                  ]);
+                }}
+              >
+                <View>
+                  <Text style={styles.buttonNext}> 預約叫車 </Text>
+                </View>
+              </TouchableWithoutFeedback>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     );
@@ -473,13 +374,13 @@ const styles = StyleSheet.create({
     borderColor: "#fddb92",
     borderWidth: 0.5
   },
-  buttonContainer: {
+  buttonNext: {
     fontSize: 20,
-    color: "#fddb92"
+    color: "#fddb92",
+    margin: 10
   },
-  ////////////////
   border: {
-    height: 50,
+    height: 100,
     flexDirection: "row",
     alignItems: "center",
     margin: 10,
@@ -498,14 +399,5 @@ const styles = StyleSheet.create({
     color: "powderblue",
     fontSize: 15,
     margin: 10
-  },
-  //////
-
-  screen: {
-    height: 300,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 25,
-    backgroundColor: "white"
   }
 });

@@ -8,19 +8,33 @@ import {
   Alert,
   Image
 } from "react-native";
+import LottieView from "lottie-react-native";
 
 export default class LoginView extends Component {
   static navigationOptions = {
     header: null
   };
+  async componentDidMount() {
+    this.animation.play();
+  }
 
+  resetAnimation = () => {
+    this.animation.reset();
+    this.animation.play();
+  };
   render() {
     return (
       <View style={styles.container}>
-        <Image
-          source={require("./tenor.gif")}
-          style={{ ...styles.logo }}
-        ></Image>
+        <LottieView
+          ref={animation => {
+            this.animation = animation;
+          }}
+          style={{
+            width: 100,
+            height: 100
+          }}
+          source={require("./3870-taxi.json")}
+        />
 
         <View style={styles.inputContainer}>
           <Image
@@ -56,12 +70,15 @@ export default class LoginView extends Component {
           <Text>忘記密碼?</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
-         onPress={() => this.props.navigation.navigate("Home")}>
+        <TouchableOpacity
+          style={[styles.buttonContainer, styles.loginButton]}
+          onPress={() => this.props.navigation.navigate("DriverHome")}
+        >
           <Text style={styles.loginText}>登入</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.buttonContainer, styles.signinButton]}>
+        <TouchableOpacity style={[styles.buttonContainer, styles.signinButton]}
+         onPress={() => this.props.navigation.navigate("DriverLogin1")}>
           <Text style={styles.loginText}>註冊</Text>
         </TouchableOpacity>
 
@@ -98,12 +115,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "lightyellow"
+    backgroundColor: "#fddb92"
   },
   logo: {
     height: 200,
-    width: 200,
-    borderRadius: 200 / 2
+    width: 200
   },
   inputContainer: {
     backgroundColor: "#FFFFFF",

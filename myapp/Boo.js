@@ -24,15 +24,20 @@ export default class Splash extends Component {
     this.animation.play();
     Animated.sequence([
       Animated.timing(this.state.logoOpacity, {
-        toValue: 1,
-        duration: 3000
+        toValue: 0.5,
+        duration: 500
       }),
       Animated.timing(this.state.titleMarginTop, {
         toValue: 10,
-        duration: 5000
-      })
+        duration: 1000
+      }),
+      Animated.timing(this.state.logoOpacity, {
+        toValue: 1,
+        duration: 2000
+      }),
     ]).start(() => {
-      this.props.navigation.navigate("Home");
+   
+      this.props.navigation.navigate("Login1");
     });
   }
 
@@ -52,8 +57,8 @@ export default class Splash extends Component {
               this.animation = animation;
             }}
             style={{
-              width: 200,
-              height: 200
+              width: 300,
+              height: 300
             }}
             source={require("./3870-taxi.json")}
           />
@@ -77,16 +82,16 @@ const styles = StyleSheet.create({
     //#001540
   },
   logo: {
-    height: 200,
-    width: 200,
-    borderRadius: 200 / 2
+    height: 300,
+    width: 300,
+    borderRadius: 300 / 2,
   },
   title: {
-    color: "#ccc",
+    color: "gray",
     marginTop: 20,
     textAlign: "center",
 
-    fontSize: 20
+    fontSize: 30
   }
  
 });
