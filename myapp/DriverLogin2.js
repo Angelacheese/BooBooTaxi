@@ -5,71 +5,39 @@ import {
   View,
   TextInput,
   Button,
-  Modal,
-  TouchableHighlight
+  TouchableHighlight,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  Image
 } from "react-native";
-
+import DatePicker from "react-native-datepicker";
+import { Dropdown } from "react-native-material-dropdown";
+import { Icon, Divider } from "react-native-elements";
 export default class DriverSignUp extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: "註冊"
-  });
+  static navigationOptions = {
+    header: null
+  };
   constructor(props) {
     super(props);
 
     this.state = {
       ageSelection: " ",
-      ageDisplayed: false,
-      yearSelection: " ",
-      yearDisplayed: false
+      yearSelection: " "
     };
   }
   setAge(newValue) {
     this.setState({
       ageSelection: newValue
     });
+  }
 
-    this.age();
-  }
-  age() {
-    this.setState({
-      ageDisplayed: !this.state.ageDisplayed
-    });
-  }
   setYear(newValue) {
     this.setState({
       yearSelection: newValue
     });
-    this.year();
-  }
-  year() {
-    this.setState({
-      yearDisplayed: !this.state.yearDisplayed
-    });
   }
 
   render() {
-    const age = [
-      {
-        title: "20-30",
-        value: "20-30"
-      },
-      {
-        title: "31-40",
-        value: "31-40"
-      },
-      {
-        title: "41-50",
-        value: "41-50"
-      },
-      {
-        title: "51-60",
-        value: "51-60"
-      },
-      {
-        title: "61-65",
-        value: "61-65"
-      }
-    ];
     const year = [
       {
         title: "0-5年",
@@ -80,139 +48,172 @@ export default class DriverSignUp extends React.Component {
         value: "5-10年"
       },
       {
-        title: "10年以上",
-        value: "10年以上"
+        title: "10-15年",
+        value: "10-15年"
+      },
+      {
+        title: "15年以上",
+        value: "15年以上"
+      },
+      {
+        title: "取消",
+        value: " "
       }
     ];
 
     return (
-      <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>年紀： {this.state.ageSelection}</Text>
-          <Button onPress={() => this.age()} title={"請選擇年紀"} />
-
-          <Modal
-            visible={this.state.ageDisplayed}
-            animationType={"slide"}
-            transparent={true}
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#001540"
+        }}
+      >
+        <Image
+          style={{
+            height: "100%",
+            width: "100%",
+            position: "absolute"
+          }}
+          blurRadius={3}
+          source={require("./pic/[DriverSignIn]cover.jpg")}
+        />
+        <KeyboardAvoidingView behavior="padding">
+          <View
+            style={{
+              width: 250,
+              height: 100,
+              margin: 5,
+              flexDirection: "row",
+              alignItems: "center",
+              left: 20
+            }}
           >
-            <View style={[styles.view]}>
-              <Text>請選擇年紀</Text>
-              {age.map((value, index) => {
-                return (
-                  <TouchableHighlight
-                    key={index}
-                    onPress={() => this.setAge(value.value)}
-                    style={{ paddingTop: 4, paddingBottom: 4 }}
-                  >
-                    <Text>{value.title}</Text>
-                  </TouchableHighlight>
-                );
-              })}
+            <Icon name="person-pin" color="#fff" size={50} />
+            <Text
+              style={{
+                fontSize: 30,
+                color: "#fff",
+                fontWeight: "bold"
+              }}
+            >
+              {" "}
+              個人資料
+            </Text>
+          </View>
 
-              <TouchableHighlight
-                onPress={() => this.age()}
-                style={{ paddingTop: 4, paddingBottom: 4 }}
-              >
-                <Text style={{ color: "#999" }}>取消</Text>
-              </TouchableHighlight>
-            </View>
-          </Modal>
-        </View>
+          <View style={{ left: 15 }}>
+            <Dropdown
+              label="年資"
+              data={year}
+              onChangeText={title => this.setYear(title)}
+              textColor="#fff"
+              baseColor="#fff"
+              selectedItemColor="#3b5998"
+            />
+          </View>
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>年資： {this.state.yearSelection}</Text>
-          <Button onPress={() => this.year()} title={"請選擇年資"} />
+          <View style={{ left: 15 }}>
+            <Dropdown
+              label="熟悉地區"
+              data={year}
+              onChangeText={title => this.setYear(title)}
+              textColor="#fff"
+              baseColor="#fff"
+              selectedItemColor="#3b5998"
+            />
+          </View>
+          <View style={{ left: 15 }}>
+            <Dropdown
+              label="擅長語言"
+              data={year}
+              onChangeText={title => this.setYear(title)}
+              textColor="#fff"
+              baseColor="#fff"
+              selectedItemColor="#3b5998"
+            />
+          </View>
+          <View style={{ left: 15 }}>
+            <Dropdown
+              label="特色"
+              data={year}
+              onChangeText={title => this.setYear(title)}
+              textColor="#fff"
+              baseColor="#fff"
+              selectedItemColor="#3b5998"
+            />
+          </View>
+          <View style={styles.textInput}>
+            <Text style={{ color: "#fff", margin: 5, right: 80 }}>
+              車牌號碼：
+            </Text>
+            <TextInput
+              style={styles.inputs}
+              placeholder="請輸入車牌號碼"
+              returnKeyType="next"
+            />
+          </View>
+          <View style={styles.textInput}>
+            <Text style={{ color: "#fff", margin: 5, right: 80 }}>
+              車子型號：
+            </Text>
+            <TextInput
+              style={styles.inputs}
+              placeholder="請輸入車子型號"
+              returnKeyType="next"
+            />
+          </View>
 
-          <Modal
-            visible={this.state.yearDisplayed}
-            animationType={"slide"}
-            transparent={true}
+          <View style={styles.textInput}>
+            <Text style={styles.text}>車齡：</Text>
+            <TextInput
+              style={styles.inputs}
+              placeholder="車齡"
+              returnKeyType="next"
+            />
+          </View>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => this.props.navigation.navigate("DriverLogin3")}
           >
-            <View style={[styles.view]}>
-              <Text>請選擇年資</Text>
-              {year.map((value, index) => {
-                return (
-                  <TouchableHighlight
-                    key={index}
-                    onPress={() => this.setYear(value.value)}
-                    style={{ paddingTop: 4, paddingBottom: 4 }}
-                  >
-                    <Text>{value.title}</Text>
-                  </TouchableHighlight>
-                );
-              })}
-
-              <TouchableHighlight
-                onPress={() => this.year()}
-                style={{ paddingTop: 4, paddingBottom: 4 }}
-              >
-                <Text style={{ color: "#999" }}>取消</Text>
-              </TouchableHighlight>
-            </View>
-          </Modal>
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>熟悉地區：</Text>
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>擅長語言：</Text>
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>特色：</Text>
-        </View>
-
-        <Button
-          title="下一步"
-          onPress={() => this.props.navigation.navigate("DriverLogin3")}
-        ></Button>
+            <Text style={{ color: "#fff", margin: 5 }}>下一步</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "lightyellow",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-
-  view: {
-    margin: 20,
-    padding: 20,
-    backgroundColor: "#efefef",
-    bottom: 20,
-    left: 20,
-    right: 20,
-    alignItems: "center",
-    position: "absolute",
-    fontSize: 20
-  },
-  inputContainer: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 30,
+  textInput: {
     borderStyle: "solid",
-    borderColor: "black",
-    borderWidth: 1,
-    borderBottomWidth: 1,
-    width: 350,
+    borderColor: "transparent",
+    borderBottomColor: "#fff",
+    borderWidth: 0.5,
+    margin: 5,
+    width: 250,
     height: 50,
-    marginBottom: 20,
     flexDirection: "row",
-    alignItems: "center"
-  },
-  inputs: {
-    height: 50,
-    marginLeft: 16,
-    borderBottomColor: "#FFFFFF",
-    flex: 1
+    alignItems: "center",
+    left: 20
   },
   text: {
-    color: "black",
-    textAlign: "left",
-    fontSize: 15,
-    margin: 10
+    color: "#fff",
+    margin: 5,
+    right: 50
+  },
+
+  buttonContainer: {
+    height: 40,
+    borderWidth: 2,
+    backgroundColor: "#3b5998",
+    borderColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    left: 85,
+    width: 100,
+    borderRadius: 30,
+    margin: 5
   }
 });

@@ -18,7 +18,7 @@ const window = Dimensions.get("window");
 
 export default class Basic extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "歷程記錄"
+    title: "車導行程"
   });
   constructor() {
     super();
@@ -56,8 +56,8 @@ export default class Basic extends Component {
             </Text>
             <Text>⭐️⭐️⭐️⭐️⭐️</Text>
 
-            <Text>主打:</Text>
-            <Text>費用:720元/人</Text>
+            <Text style={styles.text}>主打:</Text>
+            <Text style={styles.text}>費用:720元/人</Text>
           </View>
         </View>
         <Timeline

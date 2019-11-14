@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo";
-export default class _TouchableOpacity extends Component {
-  render() {
-    return <TouchableOpacity style={styles.button}/>;
-  }
-}
 
 const styles = StyleSheet.create({
   button: {
@@ -38,3 +33,4 @@ const styles = StyleSheet.create({
     height: 150
   }
 });
+export default styles;

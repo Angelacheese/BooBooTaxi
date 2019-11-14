@@ -18,6 +18,15 @@ const MyMapView = props => {
         apikey={GOOGLE_MAPS_APIKEY}
         strokeWidth={3}
         strokeColor="blue"
+        onStart={params => {
+          console.log(
+            `Started routing between "${params.origin}" and "${params.destination}"`
+          );
+        }}
+        onReady={result => {
+          console.log(`Distance: ${result.distance} km`);
+          console.log(`Duration: ${result.duration} min.`);
+        }}
       />
       <MapView.Marker coordinate={props.x} />
     </MapView>

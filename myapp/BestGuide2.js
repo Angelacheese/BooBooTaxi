@@ -18,7 +18,7 @@ import GestureRecognizer, {
 } from "react-native-swipe-gestures";
 import DatePicker from "react-native-datepicker";
 import { Dropdown } from "react-native-material-dropdown";
-
+import styles from "./Stylesheet";
 class SomeComponent extends Component {
   static navigationOptions = () => ({
     title: "最佳車導"
@@ -30,7 +30,7 @@ class SomeComponent extends Component {
       person: " ",
 
       gestureName: "none",
-      upperBound: 1,
+      upperBound: 0,
       allDays: [
         [0, 0, 0],
         [0, 0, 0],
@@ -41,7 +41,7 @@ class SomeComponent extends Component {
         [0, 0, 0],
         [0, 0, 0]
       ],
-      currentItem: 1,
+      currentItem: 0,
       menuitems: [0, 0, 0]
     };
   }
@@ -189,7 +189,7 @@ class SomeComponent extends Component {
 
   _Days(newValue) {
     this.setState({
-      upperBound: newValue
+      upperBound: newValue - 1
     });
   }
   _howManydays() {
@@ -201,7 +201,7 @@ class SomeComponent extends Component {
       { title: "5", value: 5 },
       { title: "6", value: 6 },
       { title: "7", value: 7 },
-      { title: "取消", value: "" }
+      { title: "取消", value: " " }
     ];
     return (
       <View margin={5}>
@@ -330,16 +330,33 @@ class SomeComponent extends Component {
 
   _onSwipeRight(gestureState) {
     this.setState({
-      currentItem: Math.max(this.state.currentItem - 1, 1),
+      currentItem: Math.max(this.state.currentItem - 1, 0),
       menuitems: [...this.state.allDays[this.state.currentItem]]
     });
   }
 
   _onSwipeLeft(gestureState) {
-    this.setState({
-      currentItem: Math.min(this.state.currentItem + 1, this.state.upperBound),
-      menuitems: [...this.state.allDays[this.state.currentItem]]
-    });
+    console.log(this.state.currentItem);
+
+    this.setState(
+      {
+        currentItem: Math.min(this.state.currentItem + 1, this.state.upperBound)
+      },
+      function() {
+        console.log(this.state.currentItem);
+        this.setState({
+          menuitems: [...this.state.allDays[this.state.currentItem]]
+        });
+      }
+    );
+
+    console.log(this.state.currentItem);
+
+    // this.setState({
+    //   currentItem: Math.min(this.state.currentItem + 1, this.state.upperBound),
+    //   menuitems: [...this.state.allDays[this.state.currentItem]]
+    // });
+    // console.log(this.state.currentItem);
   }
 
   _onSwipe(gestureName, gestureState) {
@@ -353,7 +370,7 @@ class SomeComponent extends Component {
     };
 
     return (
-      <View style={{ flex: 1, backgroundColor: "#001540" }}>
+      <View style={styles.container2}>
         {this._wherePlaces()}
         {this._howManypeople()}
         {this._howManydays()}
@@ -376,40 +393,26 @@ class SomeComponent extends Component {
               borderRadius: 10
             }}
           >
-            <Text style={styles.text}>第{this.state.currentItem}天</Text>
+            <Text style={styles.text3}>第{this.state.currentItem + 1}天</Text>
+            <Text style={styles.text3}>
+              預約時間 {this.state.menuitems[1]}:{this.state.menuitems[2]}
+            </Text>
             {this._howManyhours()}
             {this._howManytimes()}
             {this._howManyminutes()}
-
-            <Text style={styles.text}>
-              預約時間 {this.state.menuitems[1]}:{this.state.menuitems[2]}
-            </Text>
           </View>
         </GestureRecognizer>
         <View style={{ alignItems: "center", justifyContent: "center" }}>
           <TouchableOpacity
+            style={styles.button1}
             onPress={() => this.props.navigation.navigate("BestGuide3")}
           >
-            <Text style={styles.buttonNext}>下一步</Text>
+            <Text style={styles.text1}>下一步</Text>
           </TouchableOpacity>
         </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  buttonNext: {
-    fontSize: 20,
-    color: "#fddb92",
-    margin: 10
-  },
-
-  text: {
-    color: "white",
-    fontSize: 20,
-    margin: 10
-  }
-});
 
 export default SomeComponent;

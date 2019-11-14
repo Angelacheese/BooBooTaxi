@@ -9,33 +9,33 @@ import {
   TouchableWithoutFeedback,
   Alert
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import ActionButton from "react-native-action-button";
+import styles from "./Stylesheet";
 
 export default class CommonRoute1 extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = {
     title: "常用路線"
-  });
+  };
   render() {
     return (
-      <ScrollView style={{ flex: 1 }} backgroundColor="#001540">
+      <ScrollView style={styles.container1}>
         <View
           style={{ flex: 9, justifyContent: "center", alignItems: "center" }}
         >
-          <View style={styles.border}>
+          <View style={styles.border1}>
             <View flexDirection="row">
               <Icon name="beenhere" color="#ccc" size={50} margin={10} />
-              <Text style={styles.titleText}>路線名稱:</Text>
+              <Text style={styles.text2}>路線名稱:</Text>
             </View>
 
             <View flexDirection="row" style={{ justifyContent: "flex-end" }}>
               <TouchableOpacity
-                style={styles.button}
+                style={styles.button1}
                 onPress={() => this.props.navigation.navigate("CommonRoute2")}
               >
-                <Text style={styles.text}>查看更多</Text>
+                <Text style={styles.text1}>查看更多</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button1}>
                 <TouchableWithoutFeedback
                   style={{ backgroundColor: "powderblue" }}
                   onPress={() => {
@@ -54,14 +54,14 @@ export default class CommonRoute1 extends React.Component {
                   }}
                 >
                   <View>
-                    <Text style={styles.text}> 用此路線叫車 </Text>
+                    <Text style={styles.text1}> 用此路線叫車 </Text>
                   </View>
                 </TouchableWithoutFeedback>
               </TouchableOpacity>
             </View>
           </View>
         </View>
-        <View style={{ flex: 1 ,top:120,justifyContent:'flex-end'}}>
+        <View style={{ flex: 1, top: 120, justifyContent: "flex-end" }}>
           <ActionButton buttonColor="#fddb92">
             <ActionButton.Item
               buttonColor="#3498db"
@@ -83,35 +83,3 @@ export default class CommonRoute1 extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  button: {
-    borderWidth: 0.5,
-    borderColor: "#fddb92",
-    borderRadius: 20,
-    width: 110,
-    height: 35,
-    margin: 5,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  titleText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#fddb92",
-    margin: 10
-  },
-  text: {
-    color: "white",
-    margin: 10
-  },
-  border: {
-    justifyContent: "space-between",
-    borderColor: "white",
-    borderWidth: 1,
-    borderRadius: 5,
-    margin: 5,
-    width: 325,
-    height: 150
-  }
-});

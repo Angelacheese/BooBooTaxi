@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { StyleSheet, Text, Button, View, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import LottieView from "lottie-react-native";
+import { Icon, Divider } from "react-native-elements";
+import styles from "./Stylesheet";
 
 export default class BestGuide3 extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -10,60 +12,23 @@ export default class BestGuide3 extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: "#001540" }}>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "row"
-          }}
+      <View style={styles.container1}>
+        <TouchableOpacity
+          style={styles.button1}
+          onPress={() => this.props.navigation.navigate("BestGuide4")}
         >
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate("BestGuide4")}
-          >
-            <Text style={styles.text}>依條件選車導</Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "row"
-          }}
+          <Icon name="label" color="#fddb92" />
+          <Text style={styles.text1}>依條件選車導</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.button1}
+          onPress={() => this.props.navigation.navigate("BestGuide5")}
         >
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate("BestGuide5")}
-          >
-            <Text style={styles.text}>依行程選車導</Text>
-          </TouchableOpacity>
-        </View>
+          <Icon name="crop" color="#fddb92" />
+          <Text style={styles.text1}>依行程選車導</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  button: {
-    borderWidth: 0.5,
-    borderColor: "#fddb92",
-    borderRadius: 20,
-    width: 110,
-    height: 35,
-    margin: 5,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  text: {
-    color: "white",
-    margin: 10
-  }
-});

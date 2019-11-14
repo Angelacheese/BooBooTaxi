@@ -4,13 +4,26 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  Alert,
+  Button
 } from "react-native";
 
 import MapContainer from "./containers/DriverHome-mapContainer";
 import { Icon, Divider } from "react-native-elements";
 var { width, height } = Dimensions.get("window");
 export default class App extends React.Component {
+  _Alert=()=>{
+    Alert.alert(
+      '通知',
+      '您有一筆最佳車導訂單通知',
+      [
+        {text: '查看', onPress: () => this.props.navigation.navigate("DriverOrder")},
+        {text: '取消', onPress: () => console.log('No Pressed'), style: 'cancel'},
+      ],
+
+    );
+  } 
   static navigationOptions = ({ navigation }) => ({
     title: "B o o B o o",
     headerLeft: (
@@ -51,21 +64,22 @@ export default class App extends React.Component {
         >
           <TouchableOpacity
             style={styles.personalBorder}
-              onPress={() => this.props.navigation.navigate("DriverPackage1")}
+            onPress={this._Alert}
           >
             <Icon name="face" color="#ccc" size={50} margin={15} />
             <Text style={{ color: "#ccc" }}>通知</Text>
+     
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.personalBorder}
-             onPress={() => this.props.navigation.navigate("DriverHistoryMap1")}
+            onPress={() => this.props.navigation.navigate("DriverHistoryMap1")}
           >
             <Icon name="favorite" color="#ccc" size={50} margin={15} />
             <Text style={{ color: "#ccc" }}>乘客在哪裡</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.personalBorder}
-             onPress={() => this.props.navigation.navigate("DriverMember1")}
+            onPress={() => this.props.navigation.navigate("DriverMember1")}
           >
             <Icon name="person" color="#ccc" size={50} margin={15} />
             <Text style={{ color: "#ccc" }}>司機資訊</Text>

@@ -1,67 +1,44 @@
-import React, { Component } from 'react';
+import React from "react";
 import {
-    StyleSheet,
-    Text,
-    View,
-    ScrollView,
-    TouchableOpacity,
-    TextInput,
-    Image,
-    StatusBar,
-    ImageBackground
-  } from "react-native";
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+  Image,
+  StatusBar,
+  ImageBackground
+} from "react-native";
+import styles from "./Stylesheet";
 
-  export default class DChangePassword extends React.Component {
-      static  navigationOptions = ({ navigation }) => ({
-        title: "更改密碼"   
-      });
-      render(){
-          return(
-              <View style={{ flex: 1 }} backgroundColor="#001540">
-
-              
-              <View style={{flexDirection:'row'}}>
-                  <Text style={styles.text}>
-                  請輸入舊密碼：
-                  </Text>
-                  <TextInput placeholderTextColor="white"  style={styles.textInput}
-                   secureTextEntry={true}
-                   placeholder="請輸入舊密碼"></TextInput>
-              </View>
-              <View >
-                  <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate('ChangePassword2')}}>
-                      <Text style={styles.text}>
-                          下一步
-                      </Text>
-                  </TouchableOpacity>
-              </View>
-              </View>
-          )
-      }
+export default class DChangePassword extends React.Component {
+  static navigationOptions = {
+    title: "變更密碼"
+  };
+  render() {
+    return (
+      <View style={styles.container2}>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.text1}>請輸入舊密碼：</Text>
+          <TextInput
+            placeholderTextColor="white"
+            style={styles.textInput1}
+            secureTextEntry={true}
+            placeholder="請輸入舊密碼"
+          />
+        </View>
+        <View>
+          <TouchableOpacity
+            style={styles.button1}
+            onPress={() => {
+              this.props.navigation.navigate("ChangePassword2");
+            }}
+          >
+            <Text style={styles.text1}>下一步</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
   }
-  const styles = StyleSheet.create({
-      button:{
-        borderWidth: 0.5,
-        borderColor: "#fddb92",
-        borderRadius: 20,
-        width: 110,
-        height: 40,
-        margin: 5,
-        justifyContent: "center",
-        alignItems: "center"
-      },
-      text:{
-        color: "white",
-        margin: 10,
-        fontSize:20,
-      },
-      textInput: {
-        height: 40,
-        width: 100,
-        borderColor: "#ccc",
-        borderStyle: "dashed",
-        borderWidth: 0.5,
-        color: "#ccc",
-        
-      }
-  })
+}

@@ -14,14 +14,15 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import { Dropdown } from "react-native-material-dropdown";
+import styles from "./Stylesheet";
+
 export default class Test extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = {
     title: "最佳車導"
-  });
+  };
 
   constructor(props) {
     super(props);
-
     this.state = {
       age: " ",
 
@@ -92,9 +93,7 @@ export default class Test extends React.Component {
       }
     ];
     return (
-      <View
-        style={{ width: "90%", alignItem: "center", justifyContent: "center" }}
-      >
+      <View margin={5}>
         <Dropdown
           label="司機年齡"
           data={age}
@@ -123,9 +122,7 @@ export default class Test extends React.Component {
       }
     ];
     return (
-      <View
-        style={{ width: "90%", alignItem: "center", justifyContent: "center" }}
-      >
+      <View margin={5}>
         <Dropdown
           label="司機性別"
           data={sex}
@@ -162,9 +159,7 @@ export default class Test extends React.Component {
       }
     ];
     return (
-      <View
-        style={{ width: "90%", alignItem: "center", justifyContent: "center" }}
-      >
+      <View margin={5}>
         <Dropdown
           label="擅長語言"
           data={language}
@@ -249,9 +244,7 @@ export default class Test extends React.Component {
       }
     ];
     return (
-      <View
-        style={{ width: "90%", alignItem: "center", justifyContent: "center" }}
-      >
+      <View margin={5}>
         <Dropdown
           label="司機特質"
           data={characteristic}
@@ -292,9 +285,7 @@ export default class Test extends React.Component {
       }
     ];
     return (
-      <View
-        style={{ width: "90%", alignItem: "center", justifyContent: "center" }}
-      >
+      <View margin={5}>
         <Dropdown
           label="司機星級"
           data={rate}
@@ -308,8 +299,20 @@ export default class Test extends React.Component {
   }
   _Note() {
     return (
-      <View style={styles.border}>
-        <Text style={styles.text}>備註：</Text>
+      <View
+        style={{
+          height: 100,
+          flexDirection: "row",
+          alignItems: "center",
+
+          width: "96%",
+          backgroundColor: "transparent",
+          borderWidth: 0.5,
+          borderColor: "#fddb92",
+          borderRadius: 10
+        }}
+      >
+        <Text style={styles.text3}>備註：</Text>
 
         <TextInput
           style={{ height: 50, width: 100, color: "black" }}
@@ -321,18 +324,19 @@ export default class Test extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }} backgroundColor="#001540">
+      <View style={styles.container2}>
         <ScrollView>
           {this._Age()}
           {this._Sex()}
           {this._Language()}
           {this._Characteristic()}
           {this._Rate()}
-          {this._Note()}
+
           <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <TouchableOpacity style={styles.button}>
+            {this._Note()}
+
+            <View style={styles.button2}>
               <TouchableWithoutFeedback
-                style={{ backgroundColor: "powderblue" }}
                 onPress={() => {
                   Alert.alert("提示", "是否確定叫車", [
                     {
@@ -343,61 +347,17 @@ export default class Test extends React.Component {
                     {
                       text: "確定",
                       onPress: () =>
-                        this.props.navigation.navigate("WaitingPage")
+                        this.props.navigation.navigate("BestGuide_WaitingPage")
                     }
                   ]);
                 }}
               >
-                <View>
-                  <Text style={styles.buttonNext}> 預約叫車 </Text>
-                </View>
+                <Text style={styles.text4}>預約叫車</Text>
               </TouchableWithoutFeedback>
-            </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  view: {
-    margin: 20,
-    padding: 20,
-    backgroundColor: "gray",
-    bottom: 20,
-    left: 50,
-    right: 50,
-    alignItems: "center",
-    position: "absolute",
-    fontSize: 20,
-    borderColor: "#fddb92",
-    borderWidth: 0.5
-  },
-  buttonNext: {
-    fontSize: 20,
-    color: "#fddb92",
-    margin: 10
-  },
-  border: {
-    height: 100,
-    flexDirection: "row",
-    alignItems: "center",
-    margin: 10,
-    width: "95%",
-    backgroundColor: "transparent",
-    borderWidth: 0.5,
-    borderColor: "#fddb92",
-    borderRadius: 10
-  },
-  text: {
-    color: "#ccc",
-    fontSize: 20,
-    margin: 10
-  },
-  button: {
-    color: "powderblue",
-    fontSize: 15,
-    margin: 10
-  }
-});

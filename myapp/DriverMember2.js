@@ -11,34 +11,130 @@ import {
   ImageBackground,
   KeyboardAvoidingView
 } from "react-native";
-// import { LinearGradient } from "expo-linear-gradient";
+import LottieView from "lottie-react-native";
 import DatePicker from "react-native-datepicker";
+import * as ImagePicker from "expo-image-picker";
+import Constants from "expo-constants";
+import * as Permissions from "expo-permissions";
+//import ButtonTest from "./ButtonTest";
 class DM2 extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "會員資料"
+    title: "司機資料"
   });
   constructor(props) {
     super(props);
     this.state = {
+      image: "./pic/[BestGuide7]ryu.jpg",
       display: true,
+      account: "B0544151",
+      password: " ",
+      name: "RYU劉以豪",
+      sex: "男",
+      date: "2019-09-19",
       phone: "0912345678",
       area: "桃園市、台中市",
       year: "6-10年",
       language: "中文、英文、台語",
-      feature: " ",
-      carnum:"GYL-0618",
-      cartype:"TOYOTA-WISH"
+      feature: "顏質高、彈吉他、唱歌",
+      carnum: "GYL-0618",
+      cartype: "TOYOTA-WISH"
     };
   }
+  componentDidMount() {
+    this.animation1.play();
+    this.getPermissionAsync();
+  }
+
+  resetAnimation = () => {
+    this.animation1.reset();
+    this.animation1.play();
+  };
+
+  getPermissionAsync = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+  };
+
+  _pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3]
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+    }
+  };
   _Write() {
     return (
-      <KeyboardAvoidingView behavior="padding" >
-      
-      <View flexDirection="row">
+      <KeyboardAvoidingView behavior="padding">
+        <Text style={styles.text}>司機帳號：{this.state.account}</Text>
+
+        <View flexDirection="row">
+          <Text style={styles.text}>姓名：</Text>
+          <TextInput
+            style={styles.textInput}
+            placeholder="請輸入姓名"
+            onChangeText={name =>
+              this.setState({
+                name: name
+              })
+            }
+          />
+        </View>
+        <View flexDirection="row">
+          <Text style={styles.text}>性別：</Text>
+          <TextInput
+            style={styles.textInput}
+            placeholder="請輸入性別"
+            onChangeText={sex =>
+              this.setState({
+                sex: sex
+              })
+            }
+          />
+        </View>
+
+        <View flexDirection="row">
+          <Text style={styles.text}>生日：</Text>
+          <DatePicker
+            style={{ width: 200 }}
+            date={this.state.date}
+            mode="date"
+            placeholder="select date"
+            format="YYYY-MM-DD"
+            minDate="2000-01-01"
+            maxDate="2100-12-31"
+            confirmBtnText="確認"
+            cancelBtnText="取消"
+            customStyles={{
+              dateIcon: {
+                position: "absolute",
+                left: 0,
+                top: 4,
+                marginLeft: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              }
+            }}
+            onDateChange={date => {
+              this.setState({ date: date });
+            }}
+          />
+        </View>
+        <View flexDirection="row">
           <Text style={styles.text}>手機：</Text>
           <TextInput
             style={styles.textInput}
-            placeholder="請輸入..."
+            placeholder="請輸入手機號碼"
             placeholderTextColor="white"
             onChangeText={phone =>
               this.setState({
@@ -47,12 +143,12 @@ class DM2 extends React.Component {
             }
           />
         </View>
-        
+
         <View flexDirection="row">
           <Text style={styles.text}>熟悉地區：</Text>
           <TextInput
             style={styles.textInput}
-            placeholder="請輸入..."
+            placeholder="請輸入熟悉地區"
             placeholderTextColor="white"
             onChangeText={area =>
               this.setState({
@@ -65,7 +161,7 @@ class DM2 extends React.Component {
           <Text style={styles.text}>年資：</Text>
           <TextInput
             style={styles.textInput}
-            placeholder="請輸入..."
+            placeholder="請輸入年資"
             placeholderTextColor="white"
             onChangeText={year =>
               this.setState({
@@ -100,7 +196,7 @@ class DM2 extends React.Component {
             }
           />
         </View>
-       
+
         <View flexDirection="row">
           <Text style={styles.text}>車牌號碼：</Text>
           <TextInput
@@ -134,7 +230,11 @@ class DM2 extends React.Component {
   _Correct() {
     return (
       <View>
-        <Text style={styles.text}>手機：{this.state.phine}</Text>
+        <Text style={styles.text}>司機帳號：{this.state.account}</Text>
+        <Text style={styles.text}>姓名：{this.state.name}</Text>
+        <Text style={styles.text}>性別：{this.state.sex}</Text>
+        <Text style={styles.text}>生日：{this.state.date}</Text>
+        <Text style={styles.text}>手機：{this.state.phone}</Text>
         <Text style={styles.text}>熟悉地區：{this.state.area}</Text>
         <Text style={styles.text}>年資：{this.state.year}</Text>
         <Text style={styles.text}>擅長語言：{this.state.language}</Text>
@@ -150,60 +250,56 @@ class DM2 extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }} backgroundColor="#001540">
-        <ImageBackground
-          style={{
-            width: "100%",
-            height: 200,
-            justifyContent: "flex-end",
-            alignItems: "center",
-            borderBottomRightRadius: 200,
-            borderBottomLeftRadius: 200,
-            backgroundColor: "#9face6"
+        <LottieView
+          ref={animation1 => {
+            this.animation1 = animation1;
           }}
-        >
-          {/* <Image
-            // source={require("./pic/[Member]IU.jpg")}
-            style={styles.circle}
-          /> */}
-        </ImageBackground>
-        <View>
-            <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate('ChangePhoto')}}>
-            <Text style={styles.text}>
-                更改照片
-            </Text>
-            </TouchableOpacity>
-        </View>
-        <View>
-            <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate('ChangePassword1')}}>
-            <Text style={styles.text}>
-                更改密碼
-            </Text>
-            </TouchableOpacity>
-        </View>
+          source={require("./1711-waves.json")}
+        />
 
         <View
-          style={{ flexDirection: "row", margin: 10, alignItems: "baseline" }}
+          style={{ flexDirection: "row", margin: 5, alignItems: "flex-end" }}
         >
-          <View>
-            <Text style={styles.titleText}>{this.state.name}</Text>
-          </View>
+          {this.state.image && (
+            <Image source={{ uri: this.state.image }} style={styles.circle} />
+          )}
+
+          <Text style={styles.titleText}>{this.state.name}</Text>
         </View>
 
         {this.state.display == true ? this._Correct() : this._Write()}
 
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center"
-          }}
-        >
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this._onPress()}
+        {this.state.display == true ? (
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              margin: 5
+            }}
           >
-            <Text style={styles.text}>修改資料</Text>
+            <TouchableOpacity onPress={() => this._onPress()}>
+              <Text style={styles.text}>修改資料</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate("ChangePassword1");
+              }}
+            >
+              <Text style={styles.text}>更改密碼</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                this._pickImage();
+              }}
+            >
+              <Text style={styles.text}>更改照片</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <TouchableOpacity onPress={() => this._onPress()}>
+            <Text style={styles.text}>確認</Text>
           </TouchableOpacity>
-        </View>
+        )}
       </View>
     );
   }
@@ -211,10 +307,10 @@ class DM2 extends React.Component {
 
 const styles = StyleSheet.create({
   circle: {
-    top: 40,
-    width: 200,
-    height: 200,
-    borderRadius: 100
+    margin: 5,
+    width: 150,
+    height: 150,
+    borderRadius: 75
   },
   titleText: {
     fontSize: 20,
@@ -238,7 +334,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     height: 30,
-    width: 100,
+    width: 200,
     borderColor: "#ccc",
     borderStyle: "dashed",
     borderWidth: 0.5,

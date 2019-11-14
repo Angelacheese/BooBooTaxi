@@ -20,26 +20,17 @@ export default class App extends React.Component {
         <View style={{ flex: 20 }}>
           <MapContainer />
         </View>
-        <View style={{flex:1, alignItems: "center", justifyContent: "center" }}>
-          <View
-            style={{
-              bottom: 100,
-              backgroundColor: "white",
-              alignItems: "center",
-              justifyContent: "center",
-              borderWidth: 0.5,
-              borderColor: "#fddb92",
-              margin: 5,
-              height: height / 10,
-              width: width / 3
-            }}
-          >
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
+          <View style={styles.buttonContainer}>
             <TouchableWithoutFeedback
               onPress={() => {
                 Alert.alert("提示", "是否確定叫車", [
                   {
-                    text: "Cancle",
-                    onPress: () => console.log("Cancel Pressed")
+                    text: "取消",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
                   },
                   {
                     text: "確定",
@@ -48,12 +39,16 @@ export default class App extends React.Component {
                 ]);
               }}
             >
-              <Text style={styles.buttonContainer}>預約叫車</Text>
+              <Text
+                style={{
+                  fontSize: 20,
+                  color: "#fff"
+                }}
+              >
+                預約叫車
+              </Text>
             </TouchableWithoutFeedback>
           </View>
-          {/* <View>
-          <Text></Text>
-          </View> */}
         </View>
       </View>
     );
@@ -68,10 +63,17 @@ const styles = StyleSheet.create({
 
   //////
   buttonContainer: {
-    fontSize: 20,
-    alignContent: "center",
+    bottom: 100,
+    height: 50,
+    borderWidth: 2,
+    backgroundColor: "#3b5998",
+    borderColor: "#fff",
     justifyContent: "center",
-    color: "#fddb92"
+    alignItems: "center",
+
+    margin: 5,
+    width: 200,
+    borderRadius: 30
   },
 
   text: {

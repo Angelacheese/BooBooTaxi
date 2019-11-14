@@ -10,11 +10,12 @@ import {
   StatusBar,
   ImageBackground
 } from "react-native";
+import LottieView from "lottie-react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import DatepickerTest from "./DatepickerTest";
 class Member1 extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "會員資料"
+    title: "車導簡介"
   });
   constructor(props) {
     super(props);
@@ -32,30 +33,33 @@ class Member1 extends React.Component {
       自我介紹: " "
     };
   }
+  componentDidMount() {
+    this.animation1.play();
+  }
+
+  resetAnimation = () => {
+    this.animation1.reset();
+    this.animation1.play();
+  };
 
   render() {
     return (
-      <ScrollView style={{ flex: 1 }} backgroundColor="#001540">
-        <ImageBackground
-          style={{
-            width: "100%",
-            height: 200,
-            justifyContent: "flex-end",
-            alignItems: "center",
-            borderBottomRightRadius: 200,
-            borderBottomLeftRadius: 200,
-            backgroundColor: "#9face6"
+      <View style={{ flex: 1 }} backgroundColor="#001540">
+        <LottieView
+          ref={animation1 => {
+            this.animation1 = animation1;
           }}
-        >
-          <Image
-            source={require("./pic/[BestGuide7]ryu.jpg")}
-            style={styles.circle}
-          />
-        </ImageBackground>
+          source={require("./1711-waves.json")}
+        />
 
         <View
           style={{ flexDirection: "row", margin: 10, alignItems: "baseline" }}
         >
+          
+          <Image
+            source={require("./pic/[BestGuide7]ryu.jpg")}
+            style={styles.circle}
+          />
           <View>
             <Text style={styles.titleText}>{this.state.driver}</Text>
             <Text style={styles.titleText}>⭐⭐⭐⭐⭐</Text>
@@ -80,11 +84,16 @@ class Member1 extends React.Component {
           <TouchableOpacity style={styles.button}>
             <Text style={styles.text}>評價查看</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.props.navigation.navigate("DriverHistoryMap1")}
+          >
             <Text style={styles.text}>歷程記錄</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}
-          onPress={() => this.props.navigation.navigate("GuidePackage1")}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.props.navigation.navigate("GuidePackage1")}
+          >
             <Text style={styles.text}>車導帶你玩</Text>
           </TouchableOpacity>
         </View>
@@ -93,12 +102,8 @@ class Member1 extends React.Component {
             flexDirection: "row",
             alignItems: "center"
           }}
-        >
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.text}>車導行事曆</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+        ></View>
+      </View>
     );
   }
 }

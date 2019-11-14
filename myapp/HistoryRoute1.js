@@ -12,8 +12,8 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import { Tooltip } from "react-native-elements";
-//import { _TouchableOpacity } from "./test1";
+
+
 
 class CommonRoute1 extends React.Component {
   static navigationOptions = ({ navigation }) => ({

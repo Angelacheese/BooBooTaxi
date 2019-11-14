@@ -28,7 +28,7 @@ export default class WaitingPage extends Component {
         duration: 8500
       })
     ]).start(() => {
-      this.props.navigation.navigate("PassengerOrder");
+      this.props.navigation.navigate("InmediateCall_PassengerOrder");
     });
   }
 
@@ -40,12 +40,11 @@ export default class WaitingPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <LinearGradient
-          colors={["#001540", "#051c4a", "#072970", "#ccc"]}
-          style={{
-            width: width,
-            height: height,
-
+        <LinearGradient 
+          colors={['#001540', '#072970', '#330867' ,"#764ba2"]}
+         style={{
+            width: "100%",
+            height: "100%",
             justifyContent: "center",
             alignItems: "center"
           }}

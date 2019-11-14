@@ -5,37 +5,32 @@ import {
   View,
   TextInput,
   Button,
-  Modal,
   TouchableHighlight,
-  KeyboardAvoidingView
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Image
 } from "react-native";
 import DatePicker from "react-native-datepicker";
-
+import { Dropdown } from "react-native-material-dropdown";
+import { Icon, Divider } from "react-native-elements";
 export default class DriverSignUp extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: "註冊"
-  });
+  static navigationOptions = {
+    header: null
+  };
   constructor(props) {
     super(props);
 
     this.state = {
-      sexSelection: " ",
-      sexDisplayed: false,
+      sex: " ",
       date: "2019-09-19"
     };
   }
   setSex(newValue) {
     this.setState({
-      sexSelection: newValue
+      sex: newValue
     });
+  }
 
-    this.togglePicker2();
-  }
-  togglePicker2() {
-    this.setState({
-      sexDisplayed: !this.state.sexDisplayed
-    });
-  }
   render() {
     const sex = [
       {
@@ -45,157 +40,154 @@ export default class DriverSignUp extends React.Component {
       {
         title: "女",
         value: "女"
+      },
+      {
+        title: "取消",
+        value: " "
       }
     ];
 
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>姓名：</Text>
-          <TextInput
-            style={styles.inputs}
-            placeholder="請輸入姓名"
-            returnKeyType="next"
-            underlineColorAndroid="transparent"
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>性別： {this.state.sexSelection}</Text>
-          <Button onPress={() => this.togglePicker2()} title={"請選擇性別"} />
-
-          <Modal
-            visible={this.state.sexDisplayed}
-            animationType={"slide"}
-            transparent={true}
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#001540"
+        }}
+      >
+        <Image
+          style={{
+            height: "100%",
+            width: "100%",
+            position: "absolute"
+          }}
+          blurRadius={3}
+          source={require("./pic/[DriverSignIn]cover.jpg")}
+        />
+        <KeyboardAvoidingView behavior="padding">
+          <View
+            style={{
+              width: 250,
+              height: 100,
+              margin: 5,
+              flexDirection: "row",
+              alignItems: "center",
+              left: 20
+            }}
           >
-            <View style={[styles.view]}>
-              <Text>請選擇性別</Text>
-              {sex.map((value, index) => {
-                return (
-                  <TouchableHighlight
-                    key={index}
-                    onPress={() => this.setSex(value.value)}
-                    style={{ paddingTop: 4, paddingBottom: 4 }}
-                  >
-                    <Text>{value.title}</Text>
-                  </TouchableHighlight>
-                );
-              })}
+            <Icon name="person-pin" color="#fff" size={50} />
+            <Text
+              style={{
+                fontSize: 30,
+                color: "#fff",
+                fontWeight: "bold"
+              }}
+            >
+              {" "}
+              個人資料
+            </Text>
+          </View>
+          <View style={styles.textInput}>
+            <Text style={styles.text}>姓名：</Text>
+            <TextInput
+              style={styles.inputs}
+              placeholder="請輸入姓名"
+              returnKeyType="next"
+            />
+          </View>
 
-              <TouchableHighlight
-                onPress={() => this.togglePicker2()}
-                style={{ paddingTop: 4, paddingBottom: 4 }}
-              >
-                <Text style={{ color: "#999" }}>取消</Text>
-              </TouchableHighlight>
-            </View>
-          </Modal>
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>生日：</Text>
-          <DatePicker
-          //  style={{ width: 200 }}
-            date={this.state.date}
-            mode="date"
-            placeholder="select date"
-            format="YYYY-MM-DD"
-            minDate="2000-01-01"
-            maxDate="2100-12-31"
-            confirmBtnText="確認"
-            cancelBtnText="取消"
-            customStyles={{
-              dateIcon: {
-                position: "absolute",
-                left: 0,
-                top: 4,
-                marginLeft: 0
-              },
-              dateInput: {
-                marginLeft: 36
-              }
-            }}
-            onDateChange={date => {
-              this.setState({ date: date });
-            }}
-          />
-        </View>
+          <View style={{ left: 15, margin: 5 }}>
+            <Dropdown
+              label="性別"
+              data={sex}
+              onChangeText={title => this.setSex(title)}
+              textColor="#fff"
+              baseColor="#fff"
+              selectedItemColor="#3b5998"
+            />
+          </View>
+          <View style={styles.textInput}>
+            <Text style={styles.text}>生日：</Text>
+            <DatePicker
+              date={this.state.date}
+              mode="date"
+              placeholder="請選擇生日"
+              format="YYYY-MM-DD"
+              minDate="1900-01-01"
+              maxDate="2100-12-31"
+              confirmBtnText="確認"
+              cancelBtnText="取消"
+              customStyles={{}}
+              onDateChange={date => {
+                this.setState({ date: date });
+              }}
+            />
+          </View>
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>帳號：</Text>
-          <TextInput
-            style={styles.inputs}
-            placeholder="請設定帳號"
-            returnKeyType="next"
-            onSubmitEditing={() => this.password.focus()}
-            ref={input => (this.account = input)}
-            underlineColorAndroid="transparent"
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>密碼：</Text>
-          <TextInput
-            style={styles.inputs}
-            placeholder="請設定密碼"
-            returnKeyType="next"
-            onSubmitEditing={() => this.password2.focus()}
-            ref={input => (this.password = input)}
-            secureTextEntry={true}
-            underlineColorAndroid="transparent"
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>密碼確認：</Text>
-          <TextInput
-            style={styles.inputs}
-            placeholder="請再次輸入密碼"
-            returnKeyType="done"
-            ref={input => (this.password2 = input)}
-            secureTextEntry={true}
-            underlineColorAndroid="transparent"
-          />
-        </View>
-        <Button
-          title="下一步"
+          <View style={styles.textInput}>
+            <Text style={styles.text}>手機/帳號：</Text>
+            <TextInput
+              style={styles.inputs}
+              placeholder="請設定帳號"
+              returnKeyType="next"
+              onSubmitEditing={() => this.password.focus()}
+              ref={input => (this.account = input)}
+              underlineColorAndroid="transparent"
+            />
+          </View>
+          <View style={styles.textInput}>
+            <Text style={styles.text}>密碼：</Text>
+            <TextInput
+              style={styles.inputs}
+              placeholder="請設定密碼"
+              returnKeyType="next"
+              onSubmitEditing={() => this.password2.focus()}
+              ref={input => (this.password = input)}
+              secureTextEntry={true}
+              underlineColorAndroid="transparent"
+            />
+          </View>
+          <View style={styles.textInput}>
+            <Text style={{ color: "#fff", margin: 5, right: 80 }}>
+              密碼確認：
+            </Text>
+            <TextInput
+              style={styles.inputs}
+              placeholder="請再次輸入密碼"
+              returnKeyType="done"
+              ref={input => (this.password2 = input)}
+              secureTextEntry={true}
+              underlineColorAndroid="transparent"
+            />
+          </View>
+         
+            <TouchableOpacity
+          style={styles.buttonContainer}
           onPress={() => this.props.navigation.navigate("DriverLogin2")}
-        ></Button>
-      </KeyboardAvoidingView>
+        >
+          <Text style={{ color: '#fff', margin: 5 }}>下一步</Text>
+        </TouchableOpacity>
+        </KeyboardAvoidingView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "lightyellow",
+  textInput: {
+    borderStyle: "solid",
+    borderColor: "transparent",
+    borderBottomColor: "#fff",
+    borderWidth: 0.5,
+    width: 250,
+    height: 50,
+    margin: 5,
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
+    left: 20
   },
 
-  view: {
-    margin: 20,
-    padding: 20,
-    backgroundColor: "#efefef",
-    bottom: 20,
-    left: 20,
-    right: 20,
-    alignItems: "center",
-    position: "absolute",
-    fontSize: 20
-  },
-  inputContainer: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 30,
-    borderStyle: "solid",
-    borderColor: "black",
-    borderWidth: 1,
-    borderBottomWidth: 1,
-    width: 350,
-    height: 50,
-    marginBottom: 20,
-    flexDirection: "row",
-    alignItems: "center"
-  },
   inputs: {
     height: 50,
     marginLeft: 16,
@@ -203,9 +195,21 @@ const styles = StyleSheet.create({
     flex: 1
   },
   text: {
-    color: "black",
-    textAlign: "left",
-    fontSize: 15,
-    margin: 10
-  }
+    color: "#fff",
+    margin: 5,
+    right: 50
+  },
+ 
+  buttonContainer: {
+    height: 40,
+    borderWidth: 2,
+    backgroundColor: '#3b5998',
+    borderColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    left: 85,
+    margin:5,
+    width: 100,
+    borderRadius: 30,
+  },
 });

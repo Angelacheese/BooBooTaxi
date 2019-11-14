@@ -49,10 +49,6 @@ export default class Home extends React.Component {
     )
   });
 
-  state = {
-    left: new Animated.Value(-40)
-  };
-
   ///TOP 10 BEST Guides
   _BestGuideCards() {
     return (
@@ -111,23 +107,7 @@ export default class Home extends React.Component {
     });
   }
 
-  _cycleAnimation() {
-    Animated.sequence([
-      Animated.timing(this.state.left, {
-        toValue: 25,
-        duration: 5000
-      }),
-
-      Animated.timing(this.state.left, {
-        toValue: -30,
-        duration: 5000
-      })
-    ]).start(() => {
-      this._cycleAnimation();
-    });
-  }
   componentDidMount() {
-    //this._cycleAnimation();
     this.animation1.play();
     this.animation2.play();
     this.animation3.play();
@@ -183,7 +163,7 @@ export default class Home extends React.Component {
             ref={animation1 => {
               this.animation1 = animation1;
             }}
-            source={require("./4340-pew-pew.json")}
+            source={require("./10347-christmas-background.json")}
           />
           <Text style={styles.titleText}>WHAT can we do for you</Text>
         </View>
@@ -243,15 +223,15 @@ export default class Home extends React.Component {
         <View flexDirection="row" justifyContent="center" margin={10}>
           <TouchableOpacity
             style={styles.personalBorder}
-            onPress={() => this.props.navigation.navigate("PassengerOrder")}
+            onPress={() => this.props.navigation.navigate("App")}
           >
-            <Icon name="face" color="#ccc" size={50} margin={15} />
+            <Icon name="chat" color="#ccc" size={50} margin={15} />
             <Text style={{ color: "#ccc" }}>聊天室</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.personalBorder}
-            onPress={() => this.props.navigation.navigate("Calender")}
+            onPress={() => this.props.navigation.navigate("CoEditing1")}
           >
             <Icon name="favorite" color="#ccc" size={50} margin={15} />
             <Text style={{ color: "#ccc" }}>行事曆</Text>
@@ -259,7 +239,7 @@ export default class Home extends React.Component {
 
           <TouchableOpacity
             style={styles.personalBorder}
-            onPress={() => this.props.navigation.navigate("Member")}
+            onPress={() => this.props.navigation.navigate("PassengerMember1")}
           >
             <Icon name="person" color="#ccc" size={50} margin={15} />
             <Text style={{ color: "#ccc" }}>會員資訊</Text>
@@ -271,7 +251,7 @@ export default class Home extends React.Component {
             ref={animation2 => {
               this.animation2 = animation2;
             }}
-            source={require("./4340-pew-pew.json")}
+            source={require("./10347-christmas-background.json")}
           />
           <Text style={styles.titleText}>TOP 10 BEST Guides !</Text>
         </View>
@@ -297,37 +277,24 @@ export default class Home extends React.Component {
             ref={animation3 => {
               this.animation3 = animation3;
             }}
-            source={require("./4340-pew-pew.json")}
+            source={require("./10347-christmas-background.json")}
           />
           <Text style={styles.titleText}>WHERE can you go ?</Text>
-          {/* <Animated.View
-            {...this._cycleAnimation()}
-            style={styles.titleAnimation}
-            left={this.state.left}
-          /> */}
         </View>
-        {/* <View flexDirection="row" justifyContent="center">
-          <TouchableOpacity style={buttons.area}>
-            <Text style={styles.titleText}>系統推薦</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={buttons.area}
-            onPress={() => this.props.navigation.navigate("GuidePackage1")}
-          >
-            <Text style={styles.titleText}>車導推薦</Text>
-          </TouchableOpacity>
-        </View> */}
+
         <View justifyContent="center">
           <TouchableOpacity>
             <Image
-              source={require("./pic/[Home]TAIPEI.png")}
-              style={{ width: "100%", height: 300 }}
+              source={require("./pic/[Home]Taipei1.png")}
+              style={{ width: "100%" ,height:270}}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+     
+          <View style={{width:"100%",height:10}}/>
+          <TouchableOpacity >
             <Image
-              source={require("./pic/[Home]TAICHUNG.png")}
-              style={{ width: "100%", height: 300 }}
+              source={require("./pic/[Home]Taichung1.png")}
+              style={{ width: "100%", height: 250 }}
             />
           </TouchableOpacity>
           <TouchableOpacity>
@@ -395,7 +362,8 @@ const styles = StyleSheet.create({
     shadowColor: "gray",
     margin: 2,
     shadowOffset: {
-     height: 2, width: 2 
+      height: 2,
+      width: 2
     },
     shadowRadius: 2,
     shadowOpacity: 0.9
@@ -437,7 +405,6 @@ const styles = StyleSheet.create({
     borderWidth: 1
   }
 });
-
 
 ///////////////////////所有button樣式///////////////////
 // const linearGradients = StyleSheet.create({

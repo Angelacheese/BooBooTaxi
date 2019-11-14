@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Divider } from "react-native-elements";
-class Member extends React.Component {
+export default class PassengerMember2 extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: "會員專區"
   });
@@ -23,86 +23,78 @@ class Member extends React.Component {
   }
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <LinearGradient
-          colors={["#001540", "#051c4a", "#072970", "#ccc"]}
+           colors={['#001540', '#072970', '#330867' ,"#764ba2"]}
           style={{
             width: "100%",
-            height: "100%"
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center"
           }}
         >
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <Image
-              margin={10}
-              source={require("./pic/[Member]IU.jpg")}
-              style={styles.circle}
-            />
-            <Text>user name</Text>
-          </View>
+          <Image
+            source={require("./pic/[Member]IU.jpg")}
+            style={styles.circle}
+          />
           <TouchableOpacity
             style={styles.button}
-            onPress={() => this.props.navigation.navigate("Member1")}
+            onPress={() => this.props.navigation.navigate("PassengerMember2")}
           >
             <Text style={styles.text}>會員資料</Text>
           </TouchableOpacity>
-          <Divider style={{ backgroundColor: "#ccc", margin: 10 }} />
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.navigation.navigate("Favorite")}
           >
             <Text style={styles.text}>我的收藏</Text>
           </TouchableOpacity>
-          <Divider style={{ backgroundColor: "#ccc", margin: 10 }} />
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.navigation.navigate("Rating")}
           >
             <Text style={styles.text}>我的評價</Text>
           </TouchableOpacity>
-          <Divider style={{ backgroundColor: "#ccc", margin: 10 }} />
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.navigation.navigate("HistoryRoute1")}
           >
             <Text style={styles.text}>歷史路線</Text>
           </TouchableOpacity>
-          <Divider style={{ backgroundColor: "#ccc", margin: 10 }} />
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.navigation.navigate("CommonRoute1")}
           >
             <Text style={styles.text}>常用路線</Text>
           </TouchableOpacity>
-          <Divider style={{ backgroundColor: "#ccc", margin: 10 }} />
           <TouchableOpacity style={styles.button}>
             <Text style={styles.text}>會員隱私與權益說明</Text>
           </TouchableOpacity>
-
-          <View
+          <TouchableOpacity
             style={{
-              marginTop: 30,
-              flexDirection: "row",
-              width: "100%",
+              backgroundColor: "#fddb92",
+              borderRadius: 30,
+              width: 200,
+              height: 40,
+              margin: 5,
+              justifyContent: "center",
               alignItems: "center",
-              justifyContent: "center"
+              borderWidth: 1,
+              borderColor: "#fff"
+            }}
+            onPress={() => {
+              this.props.navigation.navigate("PassengerSignIn");
             }}
           >
-            <TouchableOpacity
-              style={[buttons.button, { backgroundColor: "brown" }]}
+            <Text
+              style={{
+                fontSize: 15,
+                color: "#3b5998"
+              }}
             >
-              <Text>想不到?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[buttons.button, { backgroundColor: "brown" }]}
-            >
-              <Text>登出</Text>
-            </TouchableOpacity>
-          </View>
+              登出
+            </Text>
+          </TouchableOpacity>
         </LinearGradient>
       </View>
     );
@@ -110,16 +102,23 @@ class Member extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#001540"
+  },
   button: {
-    backgroundColor: "transparent",
-
+    borderWidth: 0.5,
+    borderColor: "#fddb92",
+    borderRadius: 20,
     width: 200,
-    height: 30,
-    justifyContent: "center"
+    height: 35,
+    margin: 5,
+    justifyContent: "center",
+    alignItems: "center"
   },
 
   text: {
-    fontSize: 15,
+    margin: 5,
 
     color: "white"
   },
@@ -130,18 +129,3 @@ const styles = StyleSheet.create({
     borderRadius: 100
   }
 });
-
-const buttons = StyleSheet.create({
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  buttonText: {
-    fontSize: 15,
-    fontStyle: "italic",
-    color: "#ccc"
-  }
-});
-
-export default Member;

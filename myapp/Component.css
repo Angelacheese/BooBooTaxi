@@ -1,0 +1,30 @@
+/*一般樣式*/
+.container {
+  background-color: #001540;
+  flex: 1;
+}
+.text {
+  color: #fff;
+  margin: 5;
+}
+.button {
+  align-items: "center";
+  border-color: #fddb92;
+  border-radius: 20;
+  border-width: 0.5;
+  height: 35;
+  justify-content: "center";
+  margin: 5;
+  width: 110;
+}
+
+/*SignIn*/
+.loginButton {
+  background-color: #3b5998;
+  border-color: #fff;
+  border-width: 2;
+}
+.button {
+  border-color: #fddb92;
+  border-width: 0.5;
+}

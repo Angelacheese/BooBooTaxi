@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import ActionButton from "react-native-action-button";
-import { Icon } from "react-native-elements";
 import {
   Animated,
   Easing,
@@ -18,18 +16,17 @@ import SortableList from "react-native-sortable-list";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
-
+import { Icon } from "react-native-elements";
 const window = Dimensions.get("window");
 
 export default class Basic extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "我的行程",
     headerRight: (
-      <View flexDirection="row" justifyContent="flex-end" width={250}>
-        <TouchableOpacity
-        onPress={() => navigation.navigate("DriverPackage1")}
-        >
-          <Text style={{ color: "#fff" }}>儲存</Text>
+      <View style={{flexDirection:"row", justifyContent:"flex-end", margin:5}}>
+        <TouchableOpacity onPress={() => navigation.navigate("DriverPackage1")}>
+          <Icon name="check" color="#fddb92" />
+          <Text style={{ color: "#fddb92" }}>儲存</Text>
         </TouchableOpacity>
       </View>
     )
@@ -68,7 +65,6 @@ export default class Basic extends Component {
   };
 
   render() {
-    let { image } = this.state;
     return (
       <View style={{ backgroundColor: "#001540", flex: 1 }}>
         <View style={{ flexDirection: "row", margin: 5 }}>
@@ -108,9 +104,9 @@ export default class Basic extends Component {
             <Text style={{ color: "#fff" }}>封面照片: </Text>
             <Button title="Pick an image " onPress={this._pickImage} />
           </View>
-          {image && (
+          {this.state.image && (
             <Image
-              source={{ uri: image }}
+              source={{ uri: this.state.image }}
               style={{ width: 200, height: 200 }}
             />
           )}

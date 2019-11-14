@@ -37,14 +37,14 @@ export default class Splash extends Component {
       }),
     ]).start(() => {
    
-      this.props.navigation.navigate("Login1");
+      this.props.navigation.navigate("Entry2");
     });
   }
 
-  resetAnimation = () => {
-    this.animation.reset();
-    this.animation.play();
-  };
+  // resetAnimation = () => {
+  //   this.animation.reset();
+  //   this.animation.play();
+  // };
   render() {
     return (
       <View style={styles.container}>

@@ -94,7 +94,7 @@ class MapContainer extends React.Component {
           <MyMapView x={this.state.area} region={this.state.region} />
         ) : null}
         <Text style={{ color: "white", fontSize: 20, top: 5 }}>
-          上車地點: {this.state.text}
+          確認上車地點: {this.state.text}
         </Text>
       </View>
     );

@@ -9,100 +9,122 @@ import {
   Image
 } from "react-native";
 import LottieView from "lottie-react-native";
-
+import { Icon, Divider } from "react-native-elements";
 export default class LoginView extends Component {
   static navigationOptions = {
     header: null
   };
-  async componentDidMount() {
-    this.animation.play();
-  }
 
-  resetAnimation = () => {
-    this.animation.reset();
-    this.animation.play();
-  };
   render() {
     return (
-      <View style={styles.container}>
-        <LottieView
-          ref={animation => {
-            this.animation = animation;
-          }}
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#001540"
+        }}
+      >
+        <Image
           style={{
-            width: 100,
-            height: 100
+            height: "100%",
+            width: "100%",
+            position: "absolute"
           }}
-          source={require("./3870-taxi.json")}
+          blurRadius={3}
+          source={require("./pic/[DriverSignIn]cover.jpg")}
         />
-
+        <View
+          style={{
+            flexDirection: "row",
+            margin: 10,
+            alignItems: "center",
+            justifyContent: "flex-end"
+          }}
+        >
+          <Icon
+            name="drive-eta"
+            color="#fff"
+            size={100}
+            borderRadius={50}
+            borderColor="white"
+            borderWidth={2}
+          />
+          <Text
+            style={{
+              fontSize: 30,
+              color: "#fff",
+              fontWeight: "bold"
+            }}
+          >
+            {" "}
+            Driver
+          </Text>
+        </View>
         <View style={styles.inputContainer}>
           <Image
-            style={[styles.icon, styles.inputIcon]}
-            source={{
-              uri: "https://png.icons8.com/envelope/androidL/40/3498db"
-            }}
+            style={styles.icon}
+            source={require("./pic/[SignIn]e-mail.png")}
           />
           <TextInput
             style={styles.inputs}
-            placeholder="Email"
+            placeholder="E-mail"
             keyboardType="email-address"
-            underlineColorAndroid="transparent"
+            returnKeyType="next"
           />
         </View>
 
         <View style={styles.inputContainer}>
           <Image
-            style={[styles.icon, styles.inputIcon]}
-            source={{
-              uri: "https://png.icons8.com/password/androidL/40/3498db"
-            }}
+            style={styles.icon}
+            source={require("./pic/[SignIn]password.png")}
           />
           <TextInput
             style={styles.inputs}
-            placeholder="密碼"
+            placeholder="password"
             secureTextEntry={true}
-            underlineColorAndroid="transparent"
           />
         </View>
-
-        <TouchableOpacity style={styles.restoreButtonContainer}>
-          <Text>忘記密碼?</Text>
-        </TouchableOpacity>
-
+        <View style={{ width: "90%", margin: 10, alignItems: "flex-end" }}>
+          <TouchableOpacity>
+            <Text style={{ color: "#ccc" }}>忘記密碼?</Text>
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity
           style={[styles.buttonContainer, styles.loginButton]}
           onPress={() => this.props.navigation.navigate("DriverHome")}
         >
-          <Text style={styles.loginText}>登入</Text>
+          <Text style={styles.text}>登入</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.buttonContainer, styles.signinButton]}
-         onPress={() => this.props.navigation.navigate("DriverLogin1")}>
-          <Text style={styles.loginText}>註冊</Text>
+        <TouchableOpacity
+          style={[styles.buttonContainer, styles.signinButton]}
+          onPress={() => this.props.navigation.navigate("DriverLogin1")}
+        >
+          <Text style={styles.text}>手機註冊</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.buttonContainer, styles.fabookButton]}>
           <View style={styles.socialButtonContent}>
             <Image
-              style={styles.icon}
+              style={{ width: 30, height: 30 }}
               source={{
                 uri: "https://png.icons8.com/facebook/androidL/40/FFFFFF"
               }}
             />
-            <Text style={styles.loginText}>用Facebook帳號註冊</Text>
+            <Text style={styles.text}> 用Facebook帳號註冊</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.buttonContainer, styles.googleButton]}>
           <View style={styles.socialButtonContent}>
             <Image
-              style={styles.icon}
+              style={{ width: 30, height: 30 }}
               source={{
                 uri: "https://png.icons8.com/google/androidL/40/FFFFFF"
               }}
             />
-            <Text style={styles.loginText}>用Google帳號註冊</Text>
+            <Text style={styles.text}> 用Google帳號註冊</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -111,72 +133,54 @@ export default class LoginView extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fddb92"
-  },
-  logo: {
-    height: 200,
-    width: 200
-  },
   inputContainer: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 30,
     borderStyle: "solid",
-    borderColor: "black",
+    borderColor: "transparent",
+    borderBottomColor: "#fff",
     borderWidth: 1,
-    borderBottomWidth: 1,
-    width: 250,
+    width: 300,
     height: 50,
-    marginBottom: 20,
+    margin: 5,
     flexDirection: "row",
     alignItems: "center"
   },
   inputs: {
+    color: "#fff",
     height: 50,
     marginLeft: 16,
-    borderBottomColor: "#FFFFFF",
     flex: 1
   },
-  icon: {
-    width: 30,
-    height: 30
-  },
-  inputIcon: {
-    marginLeft: 15,
-    justifyContent: "center"
-  },
+
   buttonContainer: {
-    height: 45,
+    height: 40,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
-    width: 250,
+    margin: 5,
+    width: 300,
     borderRadius: 30
   },
   loginButton: {
-    backgroundColor: "#3498db"
+    borderWidth: 2,
+    backgroundColor: "#3b5998",
+    borderColor: "#fff"
   },
   signinButton: {
-    backgroundColor: "orange"
+    borderWidth: 0.5,
+    borderColor: "#fddb92"
   },
   fabookButton: {
-    backgroundColor: "#3b5998"
+    borderWidth: 0.5,
+    borderColor: "#fddb92"
   },
   googleButton: {
-    backgroundColor: "#ff0000"
+    borderWidth: 0.5,
+    borderColor: "#fddb92"
   },
-  loginText: {
+  text: {
     color: "white"
   },
-  restoreButtonContainer: {
-    width: 250,
-    marginBottom: 15,
-    alignItems: "flex-end"
-  },
+
   socialButtonContent: {
     flexDirection: "row",
     justifyContent: "center",
